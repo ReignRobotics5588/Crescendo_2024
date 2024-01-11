@@ -6,18 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.Autonomous;
-import frc.robot.commands.CloseClaw;
-import frc.robot.commands.OpenClaw;
-import frc.robot.commands.Pickup;
-import frc.robot.commands.Place;
-import frc.robot.commands.PrepareToPickup;
-import frc.robot.commands.SetElevatorSetpoint;
-import frc.robot.commands.SetWristSetpoint;
 import frc.robot.commands.TankDrive;
-import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Wrist;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -31,29 +21,19 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_drivetrain = new Drivetrain();
-  private final Elevator m_elevator = new Elevator();
-  private final Wrist m_wrist = new Wrist();
-  private final Claw m_claw = new Claw();
+
 
   private final XboxController m_joystick = new XboxController(0);
 
   private final Command m_autonomousCommand =
-      new Autonomous(m_drivetrain, m_claw, m_wrist, m_elevator);
+      new Autonomous(m_drivetrain);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Put Some buttons on the SmartDashboard
-    SmartDashboard.putData("Elevator Bottom", new SetElevatorSetpoint(0, m_elevator));
-    SmartDashboard.putData("Elevator Top", new SetElevatorSetpoint(0.25, m_elevator));
-
-    SmartDashboard.putData("Wrist Horizontal", new SetWristSetpoint(0, m_wrist));
-    SmartDashboard.putData("Raise Wrist", new SetWristSetpoint(-45, m_wrist));
-
-    SmartDashboard.putData("Open Claw", new OpenClaw(m_claw));
-    SmartDashboard.putData("Close Claw", new CloseClaw(m_claw));
 
     SmartDashboard.putData(
-        "Deliver Soda", new Autonomous(m_drivetrain, m_claw, m_wrist, m_elevator));
+        "Deliver Soda", new Autonomous(m_drivetrain));
 
     // Assign default commands
     m_drivetrain.setDefaultCommand(
@@ -61,9 +41,6 @@ public class RobotContainer {
 
     // Show what command your subsystem is running on the SmartDashboard
     SmartDashboard.putData(m_drivetrain);
-    SmartDashboard.putData(m_elevator);
-    SmartDashboard.putData(m_wrist);
-    SmartDashboard.putData(m_claw);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -87,16 +64,7 @@ public class RobotContainer {
     final JoystickButton r1 = new JoystickButton(m_joystick, 12);
 
     // Connect the buttons to commands
-    dpadUp.onTrue(new SetElevatorSetpoint(0.25, m_elevator));
-    dpadDown.onTrue(new SetElevatorSetpoint(0.0, m_elevator));
-    dpadRight.onTrue(new CloseClaw(m_claw));
-    dpadLeft.onTrue(new OpenClaw(m_claw));
-
-    r1.onTrue(new PrepareToPickup(m_claw, m_wrist, m_elevator));
-    r2.onTrue(new Pickup(m_claw, m_wrist, m_elevator));
-    l1.onTrue(new Place(m_claw, m_wrist, m_elevator));
-    l2.onTrue(new Autonomous(m_drivetrain, m_claw, m_wrist, m_elevator));
-  }
+    // ex. dpadUp.onTrue(new SetElevatorSetpoint(0.25, m_elevator));
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
