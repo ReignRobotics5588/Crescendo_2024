@@ -11,17 +11,18 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Robot;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import com.revrobotics.*;
+import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drivetrain extends SubsystemBase {
   // The Drivetrain subsystem incorporates the sensors and actuators attached to the robots chassis.
   // These include four drive motors, a left and right encoder and a gyro.
-  private final PWMSparkMax m_leftLeader = new PWMSparkMax(DriveConstants.kLeftMotorPort1);
-  private final PWMSparkMax m_leftFollower = new PWMSparkMax(DriveConstants.kLeftMotorPort2);
-  private final PWMSparkMax m_rightLeader = new PWMSparkMax(DriveConstants.kRightMotorPort1);
-  private final PWMSparkMax m_rightFollower = new PWMSparkMax(DriveConstants.kRightMotorPort2);
+  private final CANSparkMax m_leftLeader = new CANSparkMax(DriveConstants.kLeftMotorPort1,MotorType.kBrushless);
+  private final CANSparkMax m_leftFollower = new CANSparkMax(DriveConstants.kLeftMotorPort2,MotorType.kBrushless);
+  private final CANSparkMax m_rightLeader = new CANSparkMax(DriveConstants.kRightMotorPort1,MotorType.kBrushless);
+  private final CANSparkMax m_rightFollower = new CANSparkMax(DriveConstants.kRightMotorPort2,MotorType.kBrushless);
 
   private final DifferentialDrive m_drive =
       new DifferentialDrive(m_leftLeader::set, m_rightLeader::set);
@@ -46,8 +47,8 @@ public class Drivetrain extends SubsystemBase {
     SendableRegistry.addChild(m_drive, m_leftLeader);
     SendableRegistry.addChild(m_drive, m_rightLeader);
 
-    m_leftLeader.addFollower(m_leftFollower);
-    m_rightLeader.addFollower(m_rightFollower);
+    m_leftFollower.follow(m_leftLeader);
+    m_rightFollower.follow(m_rightLeader);
 
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
