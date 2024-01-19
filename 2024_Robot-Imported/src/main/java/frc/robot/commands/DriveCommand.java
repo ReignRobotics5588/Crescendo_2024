@@ -29,7 +29,6 @@ public class DriveCommand extends Command {
     addRequirements(drivetrain);
   }
 
-
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {

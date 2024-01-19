@@ -41,8 +41,8 @@ public class RobotContainer {
         "Deliver Soda", new Autonomous(m_drivetrain));
 
     // Assign default commands
-    m_drivetrain.setDefaultCommand(
-        new DriveCommand(() -> -m_joystick.getLeftY(), () -> -m_joystick.getRightY(), m_drivetrain));
+    m_drivetrain.setDefaultCommand(new DriveCommand(m_drivetrain));
+        //new DriveCommand(() -> -m_joystick.getLeftY(), () -> -m_joystick.getRightY(), m_drivetrain));
 
     // Show what command your subsystem is running on the SmartDashboard
     SmartDashboard.putData(m_drivetrain);
