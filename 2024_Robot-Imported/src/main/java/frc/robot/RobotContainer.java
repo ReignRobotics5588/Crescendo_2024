@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import javax.management.RuntimeErrorException;
+
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.commands.Autonomous;
@@ -14,7 +16,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Commands;
-
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import frc.robot.subsystems.Shooter; 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -25,8 +28,10 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_drivetrain = new Drivetrain();
   private final Intake m_Intake = new Intake();
+  private final Shooter m_Shooter = new Shooter();
 
   private final XboxController m_driverController = new XboxController(0);
+  private final XboxController m_operatorcontroller = new XboxController(1); 
 
   private final Command m_autonomousCommand =
       new Autonomous(m_drivetrain);
@@ -41,7 +46,8 @@ public class RobotContainer {
     // Assign default commands
     m_drivetrain.setDefaultCommand(
         new TankDrive(() -> -m_driverController.getLeftY(), () -> -m_driverController.getRightY(), m_drivetrain));
-
+    m_Shooter.setDefaultCommand(
+      new RunCommand(()->m_Shooter.run(m_operatorcontroller.getLeftY(), m_operatorcontroller.getRightY())));
     // Show what command your subsystem is running on the SmartDashboard
     SmartDashboard.putData(m_drivetrain);
 

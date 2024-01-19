@@ -29,6 +29,8 @@ public final class Constants {
 
   public static final class IntakeConstants {
     public static final int kMotorPort = 7;
+    public static final int sensorPort = 6;
+    public static final int lightPort = 7;
     public static final double intakeBeltSpeed = 0.6;
    
   }
