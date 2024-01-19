@@ -147,16 +147,17 @@ public class DriveSubsystem extends SubsystemBase {
     return m_ahrs.getPitch();
   }
 
-  public Pose2d getCurrentSpeeds(){
+  public Pose2d getPose(){
     return m_odometry.getPoseMeters();
   }
 
   // Configure AutoBuilder last
+  /** 
   AutoBuilder.configureRamsete(
-    this::getCurrentSpeeds,
-    this::resetEncoders,
+    this::getPose,
+    this::resetEncoders, 
     this::getCurrentSpeeds, 
-    this::Drive,
+    this::Drive, 
     new ReplanningConfig(), // Default path replanning config. See the API for the options here
       () -> {
               // Boolean supplier that controls when the path will be mirrored for the red alliance
@@ -172,4 +173,5 @@ public class DriveSubsystem extends SubsystemBase {
       this // Reference to this subsystem to set requirements
 
   );
+  */
 }
