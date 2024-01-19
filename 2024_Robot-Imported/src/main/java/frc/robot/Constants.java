@@ -5,6 +5,9 @@
 package frc.robot;
 
 public final class Constants {
+
+  public static final int SMART_LIMIT = 80;
+  public static final double k = .6;
   public static final class DriveConstants {
     public static final int kLeftMotorPort1 = 0;
     public static final int kLeftMotorPort2 = 1;
