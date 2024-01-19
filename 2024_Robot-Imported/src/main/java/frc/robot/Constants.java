@@ -27,9 +27,10 @@ public final class Constants {
         (kWheelDiameterInches * Math.PI) / (double) kEncoderCPR;
   }
 
-  public static final class ClawConstants {
+  public static final class IntakeConstants {
     public static final int kMotorPort = 7;
-    public static final int kContactPort = 5;
+    public static final double intakeBeltSpeed = 0.6;
+   
   }
 
   public static final class WristConstants {

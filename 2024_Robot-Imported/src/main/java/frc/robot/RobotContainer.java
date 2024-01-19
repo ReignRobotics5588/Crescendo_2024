@@ -5,12 +5,15 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.Constants.IntakeConstants;
 import frc.robot.commands.Autonomous;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.subsystems.Intake;
+import edu.wpi.first.wpilibj2.command.Commands;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -21,9 +24,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_drivetrain = new Drivetrain();
+  private final Intake m_Intake = new Intake();
 
-
-  private final XboxController m_joystick = new XboxController(0);
+  private final XboxController m_driverController = new XboxController(0);
 
   private final Command m_autonomousCommand =
       new Autonomous(m_drivetrain);
@@ -37,7 +40,7 @@ public class RobotContainer {
 
     // Assign default commands
     m_drivetrain.setDefaultCommand(
-        new TankDrive(() -> -m_joystick.getLeftY(), () -> -m_joystick.getRightY(), m_drivetrain));
+        new TankDrive(() -> -m_driverController.getLeftY(), () -> -m_driverController.getRightY(), m_drivetrain));
 
     // Show what command your subsystem is running on the SmartDashboard
     SmartDashboard.putData(m_drivetrain);
@@ -54,14 +57,19 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Create some buttons
-    final JoystickButton dpadUp = new JoystickButton(m_joystick, 5);
-    final JoystickButton dpadRight = new JoystickButton(m_joystick, 6);
-    final JoystickButton dpadDown = new JoystickButton(m_joystick, 7);
-    final JoystickButton dpadLeft = new JoystickButton(m_joystick, 8);
-    final JoystickButton l2 = new JoystickButton(m_joystick, 9);
-    final JoystickButton r2 = new JoystickButton(m_joystick, 10);
-    final JoystickButton l1 = new JoystickButton(m_joystick, 11);
-    final JoystickButton r1 = new JoystickButton(m_joystick, 12);
+    final JoystickButton A_BUTTON_XBOX = new JoystickButton(m_driverController, 1);
+    final JoystickButton B_BUTTON_XBOX = new JoystickButton(m_driverController, 2);
+    final JoystickButton X_BUTTON_XBOX = new JoystickButton(m_driverController, 3);
+    final JoystickButton Y_BUTTON_XBOX = new JoystickButton(m_driverController, 4);
+    final JoystickButton lBumper = new JoystickButton(m_driverController, 5);
+    final JoystickButton rBumper = new JoystickButton(m_driverController, 6);
+    final JoystickButton backArrow = new JoystickButton(m_driverController, 7);
+    final JoystickButton startArrow = new JoystickButton(m_driverController, 8);
+    final JoystickButton joystickLeftClick = new JoystickButton(m_driverController, 9);
+    final JoystickButton joystickRightClick = new JoystickButton(m_driverController, 10);
+    
+  A_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Intake.run(IntakeConstants.intakeBeltSpeed), ()->m_Intake.run(0),m_Intake)); 
+    
     }
 
     // Connect the buttons to commands
