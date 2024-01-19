@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import javax.management.RuntimeErrorException;
-
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.commands.Autonomous;
@@ -26,30 +24,30 @@ import frc.robot.subsystems.Shooter;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final Drivetrain m_drivetrain = new Drivetrain();
+  //private final Drivetrain m_drivetrain = new Drivetrain();
   private final Intake m_Intake = new Intake();
   private final Shooter m_Shooter = new Shooter();
 
   private final XboxController m_driverController = new XboxController(0);
   private final XboxController m_operatorcontroller = new XboxController(1); 
 
-  private final Command m_autonomousCommand =
-      new Autonomous(m_drivetrain);
+  private final Command m_autonomousCommand = null;
+      //new Autonomous(m_drivetrain);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Put Some buttons on the SmartDashboard
 
-    SmartDashboard.putData(
-        "Deliver Soda", new Autonomous(m_drivetrain));
+    //SmartDashboard.putData(
+       // "Deliver Soda", new Autonomous(m_drivetrain));
 
     // Assign default commands
-    m_drivetrain.setDefaultCommand(
-        new TankDrive(() -> -m_driverController.getLeftY(), () -> -m_driverController.getRightY(), m_drivetrain));
+    //m_drivetrain.setDefaultCommand(
+      //  new TankDrive(() -> -m_driverController.getLeftY(), () -> -m_driverController.getRightY(), m_drivetrain));
     m_Shooter.setDefaultCommand(
-      new RunCommand(()->m_Shooter.run(m_operatorcontroller.getLeftY(), m_operatorcontroller.getRightY())));
+      new RunCommand(()->m_Shooter.run(m_operatorcontroller.getLeftY(), m_operatorcontroller.getRightY()),m_Shooter));
     // Show what command your subsystem is running on the SmartDashboard
-    SmartDashboard.putData(m_drivetrain);
+    //SmartDashboard.putData(m_drivetrain);
 
     // Configure the button bindings
     configureButtonBindings();
