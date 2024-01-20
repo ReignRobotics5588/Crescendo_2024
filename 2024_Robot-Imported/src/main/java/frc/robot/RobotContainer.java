@@ -46,6 +46,12 @@ public class RobotContainer {
       //  new TankDrive(() -> -m_driverController.getLeftY(), () -> -m_driverController.getRightY(), m_drivetrain));
     m_Shooter.setDefaultCommand(
       new RunCommand(()->m_Shooter.run(m_operatorcontroller.getLeftY(), m_operatorcontroller.getRightY()),m_Shooter));
+
+      // 0.52 percent power
+      // 7 CAN ID forward
+      //27 CAN ID backwards
+
+      
     // Show what command your subsystem is running on the SmartDashboard
     //SmartDashboard.putData(m_drivetrain);
 
