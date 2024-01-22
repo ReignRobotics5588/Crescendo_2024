@@ -26,7 +26,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   //private final Drivetrain m_drivetrain = new Drivetrain();
   private final Intake m_Intake = new Intake();
-  private final Shooter m_Shooter = new Shooter();
+  public final Shooter m_Shooter = new Shooter();
 
   private final XboxController m_driverController = new XboxController(0);
   private final XboxController m_operatorcontroller = new XboxController(1); 
@@ -38,20 +38,19 @@ public class RobotContainer {
   public RobotContainer() {
     // Put Some buttons on the SmartDashboard
 
+
     //SmartDashboard.putData(
        // "Deliver Soda", new Autonomous(m_drivetrain));
 
     // Assign default commands
     //m_drivetrain.setDefaultCommand(
       //  new TankDrive(() -> -m_driverController.getLeftY(), () -> -m_driverController.getRightY(), m_drivetrain));
-    m_Shooter.setDefaultCommand(
-      new RunCommand(()->m_Shooter.run(m_operatorcontroller.getLeftY(), m_operatorcontroller.getRightY()),m_Shooter));
-
+    
       // 0.52 percent power
       // 7 CAN ID forward
       //27 CAN ID backwards
 
-      
+
     // Show what command your subsystem is running on the SmartDashboard
     //SmartDashboard.putData(m_drivetrain);
 
@@ -78,9 +77,13 @@ public class RobotContainer {
     final JoystickButton joystickLeftClick = new JoystickButton(m_driverController, 9);
     final JoystickButton joystickRightClick = new JoystickButton(m_driverController, 10);
     
-  A_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Intake.run(IntakeConstants.intakeBeltSpeed), ()->m_Intake.run(0),m_Intake)); 
-    
-    }
+    A_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Intake.run(IntakeConstants.intakeBeltSpeed), ()->m_Intake.run(0),m_Intake)); 
+    B_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.60, .60), ()->m_Shooter.run(0,0), m_Shooter));
+    X_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.075, .075), ()->m_Shooter.run(0,0), m_Shooter));
+    //Y_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.025, .025), ()->m_Shooter.run(0,0), m_Shooter));
+
+
+  }
 
     // Connect the buttons to commands
     // ex. dpadUp.onTrue(new SetElevatorSetpoint(0.25, m_elevator));
