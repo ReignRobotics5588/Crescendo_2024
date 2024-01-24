@@ -6,16 +6,15 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.IntakeConstants;
-import frc.robot.commands.Autonomous;
-import frc.robot.commands.TankDrive;
-import frc.robot.subsystems.Drivetrain;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.subsystems.Shooter; 
+import frc.robot.commands.Autonomous;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -27,24 +26,23 @@ public class RobotContainer {
   //private final Drivetrain m_drivetrain = new Drivetrain();
   private final Intake m_Intake = new Intake();
   public final Shooter m_Shooter = new Shooter();
+  //private final Drivetrain m_Drivetrain = new Drivetrain();
 
   private final XboxController m_driverController = new XboxController(0);
   private final XboxController m_operatorcontroller = new XboxController(1); 
 
   private final Command m_autonomousCommand = null;
-      //new Autonomous(m_drivetrain);
+     // new Autonomous(m_Drivetrain);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Put Some buttons on the SmartDashboard
 
 
-    //SmartDashboard.putData(
-       // "Deliver Soda", new Autonomous(m_drivetrain));
-
     // Assign default commands
-    //m_drivetrain.setDefaultCommand(
-      //  new TankDrive(() -> -m_driverController.getLeftY(), () -> -m_driverController.getRightY(), m_drivetrain));
+  /*  m_Drivetrain.setDefaultCommand(
+        new RunCommand(() -> m_Drivetrain.arcadeDrive(m_driverController.getRawAxis(1), m_driverController.getRawAxis(5)),
+            m_Drivetrain)); */
     
       // 0.52 percent power
       // 7 CAN ID forward
@@ -77,12 +75,14 @@ public class RobotContainer {
     final JoystickButton joystickLeftClick = new JoystickButton(m_driverController, 9);
     final JoystickButton joystickRightClick = new JoystickButton(m_driverController, 10);
     
+    
+    //Intake
     A_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Intake.run(IntakeConstants.intakeBeltSpeed), ()->m_Intake.run(0),m_Intake)); 
-    B_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.60, .60), ()->m_Shooter.run(0,0), m_Shooter));
-    X_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.075, .075), ()->m_Shooter.run(0,0), m_Shooter));
-    //Y_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.025, .025), ()->m_Shooter.run(0,0), m_Shooter));
-
-
+    //Shooter
+    B_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.50, .50), ()->m_Shooter.run(0,0), m_Shooter));
+    X_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.55, .55), ()->m_Shooter.run(0,0), m_Shooter));
+    Y_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.6, .6), ()->m_Shooter.run(0,0), m_Shooter));
+    
   }
 
     // Connect the buttons to commands
