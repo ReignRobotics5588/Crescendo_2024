@@ -8,12 +8,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.IntakeConstants;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.subsystems.Shooter; 
-import frc.robot.commands.Autonomous;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -29,7 +26,7 @@ public class RobotContainer {
   //private final Drivetrain m_Drivetrain = new Drivetrain();
 
   private final XboxController m_driverController = new XboxController(0);
-  private final XboxController m_operatorcontroller = new XboxController(1); 
+  private final XboxController m_operatorController = new XboxController(1); 
 
   private final Command m_autonomousCommand = null;
      // new Autonomous(m_Drivetrain);
@@ -64,24 +61,34 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Create some buttons
-    final JoystickButton A_BUTTON_XBOX = new JoystickButton(m_driverController, 1);
-    final JoystickButton B_BUTTON_XBOX = new JoystickButton(m_driverController, 2);
-    final JoystickButton X_BUTTON_XBOX = new JoystickButton(m_driverController, 3);
-    final JoystickButton Y_BUTTON_XBOX = new JoystickButton(m_driverController, 4);
-    final JoystickButton lBumper = new JoystickButton(m_driverController, 5);
-    final JoystickButton rBumper = new JoystickButton(m_driverController, 6);
-    final JoystickButton backArrow = new JoystickButton(m_driverController, 7);
-    final JoystickButton startArrow = new JoystickButton(m_driverController, 8);
-    final JoystickButton joystickLeftClick = new JoystickButton(m_driverController, 9);
-    final JoystickButton joystickRightClick = new JoystickButton(m_driverController, 10);
-    
+    final JoystickButton DRIVER_A_BUTTON_XBOX = new JoystickButton(m_driverController, 1);
+    final JoystickButton DRIVER_B_BUTTON_XBOX = new JoystickButton(m_driverController, 2);
+    final JoystickButton DRIVER_X_BUTTON_XBOX = new JoystickButton(m_driverController, 3);
+    final JoystickButton DRIVER_Y_BUTTON_XBOX = new JoystickButton(m_driverController, 4);
+    final JoystickButton DRIVER_lBumper = new JoystickButton(m_driverController, 5);
+    final JoystickButton DRIVER_rBumper = new JoystickButton(m_driverController, 6);
+    final JoystickButton DRIVER_backArrow = new JoystickButton(m_driverController, 7);
+    final JoystickButton DRIVER_startArrow = new JoystickButton(m_driverController, 8);
+    final JoystickButton DRIVER_joystickLeftClick = new JoystickButton(m_driverController, 9);
+    final JoystickButton DRIVER_joystickRightClick = new JoystickButton(m_driverController, 10);
+
+    final JoystickButton OPERATOR_A_BUTTON_XBOX = new JoystickButton(m_operatorController, 1);
+    final JoystickButton OPERATOR_B_BUTTON_XBOX = new JoystickButton(m_operatorController, 2);
+    final JoystickButton OPERATOR_X_BUTTON_XBOX = new JoystickButton(m_operatorController, 3);
+    final JoystickButton OPERATOR_Y_BUTTON_XBOX = new JoystickButton(m_operatorController, 4);
+    final JoystickButton OPERATOR_lBumper = new JoystickButton(m_operatorController, 5);
+    final JoystickButton OPERATOR_rBumper = new JoystickButton(m_operatorController, 6);
+    final JoystickButton OPERATOR_backArrow = new JoystickButton(m_operatorController, 7);
+    final JoystickButton OPERATOR_startArrow = new JoystickButton(m_operatorController, 8);
+    final JoystickButton OPERATOR_joystickLeftClick = new JoystickButton(m_operatorController, 9);
+    final JoystickButton OPERATOR_joystickRightClick = new JoystickButton(m_operatorController, 10);
     
     //Intake
-    A_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Intake.run(IntakeConstants.intakeBeltSpeed), ()->m_Intake.run(0),m_Intake)); 
+    DRIVER_A_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Intake.run(IntakeConstants.intakeBeltSpeed), ()->m_Intake.run(0),m_Intake)); 
     //Shooter
-    B_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.50, .50), ()->m_Shooter.run(0,0), m_Shooter));
-    X_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.55, .55), ()->m_Shooter.run(0,0), m_Shooter));
-    Y_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.6, .6), ()->m_Shooter.run(0,0), m_Shooter));
+    DRIVER_B_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.50, .50), ()->m_Shooter.run(0,0), m_Shooter));
+    DRIVER_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.55, .55), ()->m_Shooter.run(0,0), m_Shooter));
+    DRIVER_Y_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.6, .6), ()->m_Shooter.run(0,0), m_Shooter));
     
   }
 
