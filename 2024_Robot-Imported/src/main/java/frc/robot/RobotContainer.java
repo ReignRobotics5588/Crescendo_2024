@@ -10,7 +10,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Commands;
-import frc.robot.subsystems.Shooter; 
+import frc.robot.subsystems.*;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -23,7 +24,7 @@ public class RobotContainer {
   //private final Drivetrain m_drivetrain = new Drivetrain();
   private final Intake m_Intake = new Intake();
   public final Shooter m_Shooter = new Shooter();
-  //private final Drivetrain m_Drivetrain = new Drivetrain();
+  private final Drivetrain m_Drivetrain = new Drivetrain();
 
   private final XboxController m_driverController = new XboxController(0);
   private final XboxController m_operatorController = new XboxController(1); 
@@ -37,9 +38,9 @@ public class RobotContainer {
 
 
     // Assign default commands
-  /*  m_Drivetrain.setDefaultCommand(
+    m_Drivetrain.setDefaultCommand(
         new RunCommand(() -> m_Drivetrain.arcadeDrive(m_driverController.getRawAxis(1), m_driverController.getRawAxis(5)),
-            m_Drivetrain)); */
+            m_Drivetrain)); 
     
       // 0.52 percent power
       // 7 CAN ID forward
