@@ -20,18 +20,20 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
-
-import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import com.kauailabs.navx.frc.AHRS;
+import frc.robot.Constants;
+import frc.robot.Constants.DriveConstants;
+
 
 public class Drivetrain extends SubsystemBase {
 
   public static DifferentialDrive m_drive;
 
-  private CANSparkMax frontLeftMotor = new CANSparkMax(1, MotorType.kBrushless);
-  private CANSparkMax frontRightMotor = new CANSparkMax(2, MotorType.kBrushless);
-  private CANSparkMax backLeftMotor = new CANSparkMax(3, MotorType.kBrushless);
-  private CANSparkMax backRightMotor = new CANSparkMax(4, MotorType.kBrushless);
+  private CANSparkMax frontLeftMotor = new CANSparkMax(DriveConstants.kFrontLeftMotorPort, MotorType.kBrushless);
+  private CANSparkMax frontRightMotor = new CANSparkMax(DriveConstants.kFrontRightMotorPort, MotorType.kBrushless);
+  private CANSparkMax backLeftMotor = new CANSparkMax(DriveConstants.kRearLeftMotorPort, MotorType.kBrushless);
+  private CANSparkMax backRightMotor = new CANSparkMax(DriveConstants.kRearRightMotorPort, MotorType.kBrushless);
 
   private RelativeEncoder m_frontLeftEncoder = frontLeftMotor.getEncoder();
   private RelativeEncoder m_frontRightEncoder = frontRightMotor.getEncoder();
@@ -49,16 +51,11 @@ public class Drivetrain extends SubsystemBase {
     frontRightMotor.setInverted(false);
     backLeftMotor.setInverted(true);
     backRightMotor.setInverted(false);
-    m_backLeftEncoder.setPositionConversionFactor(1.9);
-    m_backRightEncoder.setPositionConversionFactor(1.9);
-    m_frontLeftEncoder.setPositionConversionFactor(1.9);
-    m_frontRightEncoder.setPositionConversionFactor(1.9);
-
+  
     frontLeftMotor.setIdleMode(IdleMode.kBrake);
     frontRightMotor.setIdleMode(IdleMode.kBrake);
     backLeftMotor.setIdleMode(IdleMode.kBrake);
     backRightMotor.setIdleMode(IdleMode.kBrake);
-
 
     // ^ FIX: Making sure none of the motors are inverted, change when we figure out
     // WTH is up with the motors lol
@@ -70,7 +67,12 @@ public class Drivetrain extends SubsystemBase {
 
     backLeftMotor.follow(frontLeftMotor);
     backRightMotor.follow(frontRightMotor);
-
+   
+    frontLeftMotor.burnFlash();
+    frontRightMotor.burnFlash();
+    backLeftMotor.burnFlash();
+    backRightMotor.burnFlash();
+    
     this.resetEncoders();
 
     // ???? Configure encoders here
@@ -81,7 +83,7 @@ public class Drivetrain extends SubsystemBase {
     m_pose = new Pose2d();
     m_odometry = new DifferentialDriveOdometry(rotation2D, getLeftEncoderDistance(), getRighttEncoderDistance(), m_pose);
     // ((Object) m_drive).setRightSideInverted(false);
-    m_drive.setMaxOutput(.80);
+   
   }
 
   public void arcadeDrive(double speed, double rotation) {
