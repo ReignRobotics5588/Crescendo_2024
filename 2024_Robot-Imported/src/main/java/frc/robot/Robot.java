@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.robot.Constants.*;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
@@ -38,38 +38,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_shooter = new Shooter();
-    CANSparkFlex leftmotor= m_shooter.getLeftMotor();
-    m_LeftShooterPID = leftmotor.getPIDController();
-
-    // PID coefficients
-    kP = 0.1; 
-    kI = 1e-4;
-    kD = 1; 
-    kIz = 0; 
-    kFF = 0; 
-    kMaxOutput = 1; 
-    kMinOutput = -1;
-
-    // set PID coefficients
-    m_LeftShooterPID.setP(kP);
-    m_LeftShooterPID.setI(kI);
-    m_LeftShooterPID.setD(kD);
-    m_LeftShooterPID.setIZone(kIz);
-    m_LeftShooterPID.setFF(kFF);
-    m_LeftShooterPID.setOutputRange(kMinOutput, kMaxOutput);
-    
-    // display PID coefficients on SmartDashboard
-    SmartDashboard.putNumber("P Gain", kP);
-    SmartDashboard.putNumber("I Gain", kI);
-    SmartDashboard.putNumber("D Gain", kD);
-    SmartDashboard.putNumber("I Zone", kIz);
-    SmartDashboard.putNumber("Feed Forward", kFF);
-    SmartDashboard.putNumber("Max Output", kMaxOutput);
-    SmartDashboard.putNumber("Min Output", kMinOutput);
-    SmartDashboard.putNumber("Set Rotations", 0);
-
-
+   
   }
 
   /**
@@ -87,6 +56,33 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     SmartDashboard.putNumber("Left RPM", m_robotContainer.m_Shooter.getLeftRPM());
     SmartDashboard.putNumber("Right RPM",m_robotContainer.m_Shooter.getRightRPM());
+
+  // read PID coefficients from SmartDashboard
+    double p = SmartDashboard.getNumber("P Gain", 0);
+    double i = SmartDashboard.getNumber("I Gain", 0);
+    double d = SmartDashboard.getNumber("D Gain", 0);
+    double iz = SmartDashboard.getNumber("I Zone", 0);
+    double ff = SmartDashboard.getNumber("Feed Forward", 0);
+    double max = SmartDashboard.getNumber("Max Output", 0);
+    double min = SmartDashboard.getNumber("Min Output", 0);
+
+    if((p != m_robotContainer.m_Shooter.kP)) {m_robotContainer.m_Shooter.m_leftPIDController.setP(p); m_robotContainer.m_Shooter.kP = p; }
+    if((i != m_robotContainer.m_Shooter.kI)) {m_robotContainer.m_Shooter.m_leftPIDController.setI(i); m_robotContainer.m_Shooter.kI = i; }
+    if((d != m_robotContainer.m_Shooter.kD)) {m_robotContainer.m_Shooter.m_leftPIDController.setD(d); m_robotContainer.m_Shooter.kD = d; }
+    if((iz != m_robotContainer.m_Shooter.kIz)) {m_robotContainer.m_Shooter.m_leftPIDController.setIZone(iz); m_robotContainer.m_Shooter.kIz = iz; }
+    if((ff != m_robotContainer.m_Shooter.kFF)) {m_robotContainer.m_Shooter.m_leftPIDController.setFF(ff); m_robotContainer.m_Shooter.kFF = ff; }
+    if((max != m_robotContainer.m_Shooter.kMaxOutput) || (min != m_robotContainer.m_Shooter.kMinOutput)) {
+      m_robotContainer.m_Shooter.m_leftPIDController.setOutputRange(min, max);
+       m_robotContainer.m_Shooter.kMaxOutput = max; 
+       m_robotContainer.m_Shooter.kMinOutput = min;
+       }
+
+    double setPoint = ShooterConstants.shooterTargetRPM;
+    m_robotContainer.m_Shooter.m_leftPIDController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
+
+    SmartDashboard.putNumber("setPoint", setPoint);
+    SmartDashboard.putNumber("ProcessVariable", m_robotContainer.m_Shooter.getLeftRPM());
+
 
     CommandScheduler.getInstance().run();
   }

@@ -93,5 +93,12 @@ public final class Constants {
       public static final double kWristSetpoint = 0.0;
       public static final double kElevatorSetpoint = 0.0;
     }
+
+
+  
+    
+  }
+      public static final class ShooterConstants {
+      public static final double shooterTargetRPM = 3350;
   }
 }
