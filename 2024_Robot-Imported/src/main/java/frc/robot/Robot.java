@@ -26,7 +26,6 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   private SparkPIDController m_LeftShooterPID;
-  private Shooter m_shooter; 
 
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
 
@@ -38,7 +37,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-   
+    m_robotContainer = new RobotContainer();
   }
 
   /**
