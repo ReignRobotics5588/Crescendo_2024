@@ -27,13 +27,17 @@ import frc.robot.RobotContainer;
 
 public class Climber extends SubsystemBase {
 
-  public CANSparkMax climber = new CANSparkMax(DriveConstants.kClimberPort, MotorType.kBrushless);
+  public CANSparkMax climberLeft = new CANSparkMax(DriveConstants.kClimberLeft, MotorType.kBrushless);
+  public CANSparkMax climberRight = new CANSparkMax(DriveConstants.kClimberRight, MotorType.kBrushless);
   public DigitalInput Switch = new DigitalInput(5);
-  public RelativeEncoder m_encoder = climber.getEncoder();
+  public RelativeEncoder m_encoder_left = climberLeft.getEncoder();
+  public RelativeEncoder m_encoder_right = climberRight.getEncoder();
 
   public Climber() {
-    climber.setIdleMode(IdleMode.kBrake);
-    m_encoder.setPosition(0.0);
+    climberLeft.setIdleMode(IdleMode.kBrake);
+    climberRight.setIdleMode(IdleMode.kBrake);
+    m_encoder_left.setPosition(0.0);
+    m_encoder_right.setPosition(0.0);
     // climber.setIdleMode(NeutralMode.Brake);keeps climber in break mode from the
     // code itself :)
   }
@@ -44,15 +48,20 @@ public class Climber extends SubsystemBase {
   }
 
   public void setSpeed(double s) {
-    climber.set(s);// climber functionsaadffa are parallel :)
+    climberLeft.set(s);// climber functionsaadffa are parallel :)
+    climberRight.set(s);
   }
 
   public boolean getSwitch() {
     return Switch.get();
   }
 
-  public double getEncoderDistance() {
-    return (m_encoder.getPosition() / 42);// 42 ticks in one rotation, counting how many full rotations there are :)
+  public double getLeftEncoderDistance() {
+    return (m_encoder_left.getPosition() / 42);// 42 ticks in one rotation, counting how many full rotations there are :)
+  }
+
+  public double getRightEncoderDistance() {
+    return (m_encoder_right.getPosition() / 42);// 42 ticks in one rotation, counting how many full rotations there are :)
   }
 
   @Override
