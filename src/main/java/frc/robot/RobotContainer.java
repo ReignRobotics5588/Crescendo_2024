@@ -8,10 +8,12 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.IntakeConstants;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import frc.robot.commands.*;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -31,13 +33,23 @@ public class RobotContainer {
   private final XboxController m_driverController = new XboxController(0);
   private final XboxController m_operatorController = new XboxController(1); 
 
-  private final Command m_autonomousCommand = DriveCommand(m_Drivetrain, 60, 0.7);
-     // new Autonomous(m_Drivetrain);
+  private final SendableChooser<Command> m_chooser;
+
+  private final Command m_autonomousCommand = new DriveCommand(m_Drivetrain, 60, 0.7);
+  private final Command m_shortCommand = new DriveCommand(m_Drivetrain, 10, 0.2);
+  private final Command m_longCommand = new DriveCommand(m_Drivetrain, 80, 0.7);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Put Some buttons on the SmartDashboard
 
+    m_chooser = new SendableChooser<>(); 
+
+    m_chooser.setDefaultOption("Default", m_autonomousCommand); 
+    m_chooser.addOption("Short", m_shortCommand);
+    m_chooser.addOption("Long", m_longCommand);
+
+    SmartDashboard.putData(m_chooser);
 
     // Assign default commands
     m_Drivetrain.setDefaultCommand(
@@ -106,7 +118,9 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    return m_autonomousCommand;
+
+  // check smartdashboard for auto here
+  public Command getAutonomousCommand() { 
+    return m_chooser.getSelected();
   }
-}
+};

@@ -5,7 +5,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 public class Shooter extends SubsystemBase{
 
-        private final CANSparkFlex m_shooterLeft = new CANSparkFlex(27, MotorType.kBrushless);
+        private final CANSparkFlex m_shooterLeft = new CANSparkFlex(24, MotorType.kBrushless);
         private final CANSparkFlex m_shooterRight = new CANSparkFlex(7, MotorType.kBrushless);
         private final RelativeEncoder m_leftencoder = m_shooterLeft.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
         private final RelativeEncoder m_rightencoder = m_shooterRight.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);

@@ -25,8 +25,8 @@ public final class Constants {
 
   public static final class ClimberConstants{
 
-    public static final int kClimberLeft = 6; 
-    public static final int kClimberRight = 6; 
+    public static final int kClimberLeft = 22; 
+    public static final int kClimberRight = 21; 
 
   }
 
@@ -38,7 +38,7 @@ public final class Constants {
   }
 
   public static final class IntakeConstants {
-    public static final int kMotorPort = 222;
+    public static final int kMotorPort = 12;
     public static final int sensorPort = 6;
     public static final int lightPort = 7;
     public static final double intakeBeltSpeed = 1.2; 

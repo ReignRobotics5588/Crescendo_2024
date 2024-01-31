@@ -38,9 +38,10 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+    m_robotContainer = new RobotContainer();
     m_shooter = new Shooter();
-    CANSparkFlex leftmotor= m_shooter.getLeftMotor();
-    m_LeftShooterPID = leftmotor.getPIDController();
+    //CANSparkFlex leftmotor= m_shooter.getLeftMotor();
+    //m_LeftShooterPID = leftmotor.getPIDController();
 
     // PID coefficients
     kP = 0.1; 
@@ -68,6 +69,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Max Output", kMaxOutput);
     SmartDashboard.putNumber("Min Output", kMinOutput);
     SmartDashboard.putNumber("Set Rotations", 0);
+
+    SmartDashboard.putNumber("Auto Selection", 0);
 
 
   }
