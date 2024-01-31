@@ -26,12 +26,12 @@ public class RobotContainer {
   public final Shooter m_Shooter = new Shooter();
   private final Drivetrain m_Drivetrain = new Drivetrain();
   private final Climber m_Climber = new Climber(); 
-  
+
 
   private final XboxController m_driverController = new XboxController(0);
   private final XboxController m_operatorController = new XboxController(1); 
 
-  private final Command m_autonomousCommand = null;
+  private final Command m_autonomousCommand = DriveCommand(m_Drivetrain, 60, 0.7);
      // new Autonomous(m_Drivetrain);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
