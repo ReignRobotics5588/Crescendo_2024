@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.ClimberConstants;
 import frc.robot.RobotContainer;
 
 /*
@@ -27,8 +28,8 @@ import frc.robot.RobotContainer;
 
 public class Climber extends SubsystemBase {
 
-  public CANSparkMax climberLeft = new CANSparkMax(DriveConstants.kClimberLeft, MotorType.kBrushless);
-  public CANSparkMax climberRight = new CANSparkMax(DriveConstants.kClimberRight, MotorType.kBrushless);
+  public CANSparkMax climberLeft = new CANSparkMax(ClimberConstants.kClimberLeft, MotorType.kBrushless);
+  public CANSparkMax climberRight = new CANSparkMax(ClimberConstants.kClimberRight, MotorType.kBrushless);
   public DigitalInput Switch = new DigitalInput(5);
   public RelativeEncoder m_encoder_left = climberLeft.getEncoder();
   public RelativeEncoder m_encoder_right = climberRight.getEncoder();

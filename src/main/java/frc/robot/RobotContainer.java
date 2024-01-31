@@ -26,6 +26,7 @@ public class RobotContainer {
   public final Shooter m_Shooter = new Shooter();
   private final Drivetrain m_Drivetrain = new Drivetrain();
   private final Climber m_Climber = new Climber(); 
+  
 
   private final XboxController m_driverController = new XboxController(0);
   private final XboxController m_operatorController = new XboxController(1); 
