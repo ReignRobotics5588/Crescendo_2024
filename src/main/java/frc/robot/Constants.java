@@ -11,10 +11,10 @@ public final class Constants {
 
   public static final class DriveConstants {
 
-    public static final int kLeftMotorPort1 = 1;
-    public static final int kLeftMotorPort2 = 4;
-    public static final int kRightMotorPort1 = 2;
-    public static final int kRightMotorPort2 = 3;
+    public static final int kFrontLeftMotorPort = 1;
+    public static final int kFrontRightMotorPort = 104;
+    public static final int kBackLeftMotorPort = 2;
+    public static final int kBackRightMotorPort = 103;
 
     public static final int kEncoderCPR = 1024; // update
     public static final double kWheelDiameterInches = 6;
@@ -30,6 +30,12 @@ public final class Constants {
 
   }
 
+  public static final class ShooterConstants{
+    public static final int kLeftMotorPort = 16;
+    public static final int kRightMotorPort = 17;
+
+  }
+
   public static final class AutoConstants {
 
     public static final double autoDistance = 0.0; // inches 
@@ -38,7 +44,8 @@ public final class Constants {
   }
 
   public static final class IntakeConstants {
-    public static final int kMotorPort = 12;
+    public static final int kRightMotorPort = 12;
+    public static final int kLeftMotorPort = 11;
     public static final int sensorPort = 6;
     public static final int lightPort = 7;
     public static final double intakeBeltSpeed = 1.2; 

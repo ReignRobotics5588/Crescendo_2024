@@ -30,10 +30,13 @@ public class Drivetrain extends SubsystemBase {
 
   public static DifferentialDrive m_drive;
 
-  private CANSparkMax frontLeftMotor = new CANSparkMax(DriveConstants.kLeftMotorPort1, MotorType.kBrushless);
-  private CANSparkMax frontRightMotor = new CANSparkMax(DriveConstants.kLeftMotorPort2, MotorType.kBrushless);
-  private CANSparkMax backLeftMotor = new CANSparkMax(DriveConstants.kRightMotorPort1, MotorType.kBrushless);
-  private CANSparkMax backRightMotor = new CANSparkMax(DriveConstants.kRightMotorPort2, MotorType.kBrushless);
+  private CANSparkMax frontLeftMotor = new CANSparkMax(DriveConstants.kFrontLeftMotorPort, MotorType.kBrushless);
+  private CANSparkMax backLeftMotor = new CANSparkMax(DriveConstants.kBackLeftMotorPort, MotorType.kBrushless);
+
+  private CANSparkMax frontRightMotor = new CANSparkMax(DriveConstants.kFrontRightMotorPort, MotorType.kBrushless);
+  private CANSparkMax backRightMotor = new CANSparkMax(DriveConstants.kBackRightMotorPort, MotorType.kBrushless);
+
+
 
   private RelativeEncoder m_frontLeftEncoder = frontLeftMotor.getEncoder();
   private RelativeEncoder m_frontRightEncoder = frontRightMotor.getEncoder();
