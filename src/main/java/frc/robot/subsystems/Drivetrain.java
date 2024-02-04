@@ -50,10 +50,10 @@ public class Drivetrain extends SubsystemBase {
   Pose2d m_pose;
 
   public Drivetrain() {
-    frontLeftMotor.setInverted(true);
-    frontRightMotor.setInverted(false);
-    backLeftMotor.setInverted(true);
-    backRightMotor.setInverted(false);
+    frontLeftMotor.setInverted(false);
+    frontRightMotor.setInverted(true);
+    backLeftMotor.setInverted(false);
+    backRightMotor.setInverted(true);
   
     frontLeftMotor.setIdleMode(IdleMode.kBrake);
     frontRightMotor.setIdleMode(IdleMode.kBrake);

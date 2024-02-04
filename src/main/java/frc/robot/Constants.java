@@ -12,9 +12,10 @@ public final class Constants {
   public static final class DriveConstants {
 
     public static final int kFrontLeftMotorPort = 1;
-    public static final int kFrontRightMotorPort = 104;
-    public static final int kBackLeftMotorPort = 2;
-    public static final int kBackRightMotorPort = 103;
+    public static final int kBackLeftMotorPort = 3;
+
+    public static final int kFrontRightMotorPort = 2;
+    public static final int kBackRightMotorPort = 4;
 
     public static final int kEncoderCPR = 1024; // update
     public static final double kWheelDiameterInches = 6;

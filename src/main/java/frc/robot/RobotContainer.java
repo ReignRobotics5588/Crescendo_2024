@@ -53,7 +53,7 @@ public class RobotContainer {
 
     // Assign default commands
     m_Drivetrain.setDefaultCommand(
-        new RunCommand(() -> m_Drivetrain.arcadeDrive(m_driverController.getRawAxis(1), m_driverController.getRawAxis(5)),
+        new RunCommand(() ->   m_Drivetrain.arcadeDrive( ( m_driverController.getRawAxis(1)*.75), ( m_driverController.getRawAxis(5)*.75)),
             m_Drivetrain)); 
 
     m_Climber.setDefaultCommand(
