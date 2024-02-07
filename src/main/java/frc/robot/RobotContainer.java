@@ -103,11 +103,15 @@ public class RobotContainer {
     
     //Intake
     DRIVER_A_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Intake.run(IntakeConstants.intakeBeltSpeed), ()->m_Intake.run(0),m_Intake)); 
-    //Shooter
-    DRIVER_B_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.50, .50), ()->m_Shooter.run(0,0), m_Shooter));
-    DRIVER_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.55, .55), ()->m_Shooter.run(0,0), m_Shooter));
-    DRIVER_Y_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.6, .6), ()->m_Shooter.run(0,0), m_Shooter));
-    
+    //Shooter Speaker
+    DRIVER_B_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(-.50, -.50), ()->m_Shooter.run(0,0), m_Shooter));
+   
+   
+    DRIVER_Y_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(-.20, -.20), ()->m_Shooter.run(0,0), m_Shooter));
+    DRIVER_rBumper.whileTrue(Commands.startEnd(()-> m_Shooter.run(-.125, -.125), ()->m_Shooter.run(0,0), m_Shooter));
+  
+    DRIVER_lBumper.whileTrue(Commands.startEnd(()->m_Intake.run(1), ()->m_Intake.run(0), m_Intake));
+  
   }
 
     // Connect the buttons to commands
