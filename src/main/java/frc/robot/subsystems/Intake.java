@@ -27,8 +27,8 @@ public class Intake extends SubsystemBase {
     }
 
     public void runMotors(double speed) {
-        m_leftIntakeMotor.set(speed);
-        m_rightIntakeMotor.set(speed);
+        m_leftIntakeMotor.set(-speed);
+        m_rightIntakeMotor.set(-speed);
         
     }
 }

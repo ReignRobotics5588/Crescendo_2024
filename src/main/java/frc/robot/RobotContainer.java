@@ -53,7 +53,7 @@ public class RobotContainer {
 
     // Assign default commands
     m_Drivetrain.setDefaultCommand(
-        new RunCommand(() ->   m_Drivetrain.arcadeDrive( ( m_driverController.getRawAxis(1)*.75), ( m_driverController.getRawAxis(5)*.75)),
+        new RunCommand(() ->   m_Drivetrain.arcadeDrive( ( m_driverController.getRawAxis(1)*.75), ( m_driverController.getRawAxis(4)*.75)),
             m_Drivetrain)); 
 
     m_Climber.setDefaultCommand(
@@ -102,15 +102,14 @@ public class RobotContainer {
     final JoystickButton OPERATOR_joystickRightClick = new JoystickButton(m_operatorController, 10);
     
     //Intake
-    DRIVER_A_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Intake.run(IntakeConstants.intakeBeltSpeed), ()->m_Intake.run(0),m_Intake)); 
     //Shooter Speaker
-    DRIVER_B_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(-.50, -.50), ()->m_Shooter.run(0,0), m_Shooter));
-   
-   
-    DRIVER_Y_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(-.20, -.20), ()->m_Shooter.run(0,0), m_Shooter));
-    DRIVER_rBumper.whileTrue(Commands.startEnd(()-> m_Shooter.run(-.125, -.125), ()->m_Shooter.run(0,0), m_Shooter));
-  
-    DRIVER_lBumper.whileTrue(Commands.startEnd(()->m_Intake.run(1), ()->m_Intake.run(0), m_Intake));
+    OPERATOR_B_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(-.50, -.50), ()->m_Shooter.run(0,0), m_Shooter));
+
+    OPERATOR_Y_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(-.65, -.65), ()->m_Shooter.run(0,0), m_Shooter));
+    OPERATOR_rBumper.whileTrue(Commands.startEnd(()-> m_Shooter.run(-.09, -.09), ()->m_Shooter.run(0,0), m_Shooter));
+    
+    DRIVER_lBumper.whileTrue(Commands.startEnd(()->m_Intake.run(0.7), ()->m_Intake.run(0), m_Intake));
+    DRIVER_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Intake.run(-.7), ()->m_Intake.run(0), m_Intake));
   
   }
 
