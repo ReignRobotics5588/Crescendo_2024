@@ -1,0 +1,16 @@
+66 degree incline:
+
+60% scores 3900 RPM
+
+55% scores 3600 RPM
+
+50% scores 3350 RPM
+
+60 degree incline:
+
+50% scores 3350 RPM
+
+57 degree incline:
+
+50% scores 3350 RPM
+

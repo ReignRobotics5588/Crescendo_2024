@@ -8,40 +8,53 @@ public final class Constants {
 
   public static final int SMART_LIMIT = 80;
   public static final double k = .6;
+
+  public static final double MAX_SPEED = 0.25;
+  public static final double K_TURN = 0.25;
+
   public static final class DriveConstants {
-    public static final int kLeftMotorPort1 = 0;
-    public static final int kLeftMotorPort2 = 1;
 
-    public static final int kRightMotorPort1 = 2;
-    public static final int kRightMotorPort2 = 3;
+    public static final int kFrontLeftMotorPort = 1;
+    public static final int kBackLeftMotorPort = 3;
 
-    public static final int[] kLeftEncoderPorts = {0, 1};
-    public static final int[] kRightEncoderPorts = {2, 3};
-    public static final boolean kLeftEncoderReversed = false;
-    public static final boolean kRightEncoderReversed = false;
+    public static final int kFrontRightMotorPort = 2;
+    public static final int kBackRightMotorPort = 4;
 
-    public static final int kRangeFinderPort = 6;
-    public static final int kAnalogGyroPort = 1;
-
-    public static final int kEncoderCPR = 1024;
+    public static final int kEncoderCPR = 1024; // update
     public static final double kWheelDiameterInches = 6;
     public static final double kEncoderDistancePerPulse =
         // Assumes the encoders are directly mounted on the wheel shafts
         (kWheelDiameterInches * Math.PI) / (double) kEncoderCPR;
   }
 
+  public static final class ClimberConstants{
+
+    public static final int kClimberLeft = 22; 
+    public static final int kClimberRight = 21; 
+
+  }
+
+  public static final class ShooterConstants{
+    public static final int kLeftMotorPort = 16;
+    public static final int kRightMotorPort = 17;
+
+  }
+
   public static final class AutoConstants {
-    public static final double kDistToBox1 = 0.10;
-    public static final double kDistToBox2 = 0.60;
 
-    public static final double kWristSetpoint = -45.0;
+    public static final double autoDistance = 0.0; // inches 
+    public static final double autoSpeed = 0.0; 
+
   }
 
-  public static final class DriveStraightConstants {
-    // these pid constants are not real, and will need to be tuned
-    public static final double kP = 4.0;
-    public static final double kI = 0.0;
-    public static final double kD = 0.0;
+  public static final class IntakeConstants {
+    public static final int kRightMotorPort = 12;
+    public static final int kLeftMotorPort = 11;
+    public static final int sensorPort = 6;
+    public static final int lightPort = 7;
+    public static final double intakeBeltSpeed = 1.2; 
   }
+
+
 
 }

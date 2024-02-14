@@ -4,16 +4,16 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.Autonomous;
-import frc.robot.commands.DriveCommand;
-import frc.robot.subsystems.DriveSubsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants.IntakeConstants;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.subsystems.*;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import frc.robot.commands.*;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -23,36 +23,52 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveSubsystem m_drivetrain = new DriveSubsystem();
+  //private final Drivetrain m_drivetrain = new Drivetrain();
+  private final Intake m_Intake = new Intake();
+  public final Shooter m_Shooter = new Shooter();
+  private final Drivetrain m_Drivetrain = new Drivetrain();
+  private final Climber m_Climber = new Climber(); 
 
-  private final SendableChooser<Command> autoChooser; // added
 
+  private final XboxController m_driverController = new XboxController(0);
+  private final XboxController m_operatorController = new XboxController(1); 
 
-  private final XboxController m_joystick = new XboxController(0);
+  private final SendableChooser<Command> m_chooser;
 
-  private final Command m_autonomousCommand =
-      new Autonomous(m_drivetrain);
+  private final Command m_autonomousCommand = new DriveCommand(m_Drivetrain, 60, 0.7);
+  private final Command m_shortCommand = new DriveCommand(m_Drivetrain, 10, 0.2);
+  private final Command m_longCommand = new DriveCommand(m_Drivetrain, 80, 0.7);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Put Some buttons on the SmartDashboard
 
-    SmartDashboard.putData(
-        "Deliver Soda", new Autonomous(m_drivetrain));
+    m_chooser = new SendableChooser<>(); 
+
+    m_chooser.setDefaultOption("Default", m_autonomousCommand); 
+    m_chooser.addOption("Short", m_shortCommand);
+    m_chooser.addOption("Long", m_longCommand);
+
+    SmartDashboard.putData(m_chooser);
 
     // Assign default commands
-    m_drivetrain.setDefaultCommand(new DriveCommand(m_drivetrain));
-        //new DriveCommand(() -> -m_joystick.getLeftY(), () -> -m_joystick.getRightY(), m_drivetrain));
+    m_Drivetrain.setDefaultCommand(
+        new RunCommand(() ->   m_Drivetrain.arcadeDrive( ( m_driverController.getRawAxis(1)*.75), ( m_driverController.getRawAxis(4)*.75)),
+            m_Drivetrain)); 
+
+    m_Climber.setDefaultCommand(
+        new RunCommand(() -> m_Climber.setSpeed(m_operatorController.getRawAxis(1)*.5),m_Climber)); 
+    
+      // 0.52 percent power
+      // 7 CAN ID forward
+      //27 CAN ID backwards
+
 
     // Show what command your subsystem is running on the SmartDashboard
-    SmartDashboard.putData(m_drivetrain);
+    //SmartDashboard.putData(m_drivetrain);
 
     // Configure the button bindings
     configureButtonBindings();
-    
-    // change name of auto
-    autoChooser = AutoBuilder.buildAutoChooser("My Default Auto");
-
   }
 
   /**
@@ -63,15 +79,39 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Create some buttons
-    final JoystickButton dpadUp = new JoystickButton(m_joystick, 5);
-    final JoystickButton dpadRight = new JoystickButton(m_joystick, 6);
-    final JoystickButton dpadDown = new JoystickButton(m_joystick, 7);
-    final JoystickButton dpadLeft = new JoystickButton(m_joystick, 8);
-    final JoystickButton l2 = new JoystickButton(m_joystick, 9);
-    final JoystickButton r2 = new JoystickButton(m_joystick, 10);
-    final JoystickButton l1 = new JoystickButton(m_joystick, 11);
-    final JoystickButton r1 = new JoystickButton(m_joystick, 12);
-    }
+    final JoystickButton DRIVER_A_BUTTON_XBOX = new JoystickButton(m_driverController, 1);
+    final JoystickButton DRIVER_B_BUTTON_XBOX = new JoystickButton(m_driverController, 2);
+    final JoystickButton DRIVER_X_BUTTON_XBOX = new JoystickButton(m_driverController, 3);
+    final JoystickButton DRIVER_Y_BUTTON_XBOX = new JoystickButton(m_driverController, 4);
+    final JoystickButton DRIVER_lBumper = new JoystickButton(m_driverController, 5);
+    final JoystickButton DRIVER_rBumper = new JoystickButton(m_driverController, 6);
+    final JoystickButton DRIVER_backArrow = new JoystickButton(m_driverController, 7);
+    final JoystickButton DRIVER_startArrow = new JoystickButton(m_driverController, 8);
+    final JoystickButton DRIVER_joystickLeftClick = new JoystickButton(m_driverController, 9);
+    final JoystickButton DRIVER_joystickRightClick = new JoystickButton(m_driverController, 10);
+
+    final JoystickButton OPERATOR_A_BUTTON_XBOX = new JoystickButton(m_operatorController, 1);
+    final JoystickButton OPERATOR_B_BUTTON_XBOX = new JoystickButton(m_operatorController, 2);
+    final JoystickButton OPERATOR_X_BUTTON_XBOX = new JoystickButton(m_operatorController, 3);
+    final JoystickButton OPERATOR_Y_BUTTON_XBOX = new JoystickButton(m_operatorController, 4);
+    final JoystickButton OPERATOR_lBumper = new JoystickButton(m_operatorController, 5);
+    final JoystickButton OPERATOR_rBumper = new JoystickButton(m_operatorController, 6);
+    final JoystickButton OPERATOR_backArrow = new JoystickButton(m_operatorController, 7);
+    final JoystickButton OPERATOR_startArrow = new JoystickButton(m_operatorController, 8);
+    final JoystickButton OPERATOR_joystickLeftClick = new JoystickButton(m_operatorController, 9);
+    final JoystickButton OPERATOR_joystickRightClick = new JoystickButton(m_operatorController, 10);
+    
+    //Intake
+    //Shooter Speaker
+    OPERATOR_B_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(-.50, -.50), ()->m_Shooter.run(0,0), m_Shooter));
+
+    OPERATOR_Y_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(-.65, -.65), ()->m_Shooter.run(0,0), m_Shooter));
+    OPERATOR_rBumper.whileTrue(Commands.startEnd(()-> m_Shooter.run(-.09, -.09), ()->m_Shooter.run(0,0), m_Shooter));
+    
+    DRIVER_lBumper.whileTrue(Commands.startEnd(()->m_Intake.run(0.7), ()->m_Intake.run(0), m_Intake));
+    DRIVER_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Intake.run(-.7), ()->m_Intake.run(0), m_Intake));
+  
+  }
 
     // Connect the buttons to commands
     // ex. dpadUp.onTrue(new SetElevatorSetpoint(0.25, m_elevator));
@@ -81,7 +121,9 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    return autoChooser.getSelected();
+
+  // check smartdashboard for auto here
+  public Command getAutonomousCommand() { 
+    return m_chooser.getSelected();
   }
-}
+};

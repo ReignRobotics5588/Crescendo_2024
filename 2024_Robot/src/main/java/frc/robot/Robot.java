@@ -4,20 +4,9 @@
 
 package frc.robot;
 
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import com.revrobotics.CANSparkFlex;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkPIDController;
-import frc.robot.subsystems.Shooter;
-import edu.wpi.first.wpilibj.DataLogManager;
-import edu.wpi.first.wpilibj.DriverStation;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -26,10 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
-
   private Command m_autonomousCommand;
-  private RobotContainer m_robotContainer;
 
+  private RobotContainer m_robotContainer;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -40,12 +28,6 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    // Starts recording to data log
-    DataLogManager.start();
-
-
-
-
   }
 
   /**
@@ -61,11 +43,9 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
-    SmartDashboard.putNumber("Left RPM", m_robotContainer.m_Shooter.getLeftRPM());
-    SmartDashboard.putNumber("Right RPM",m_robotContainer.m_Shooter.getRightRPM());
-
-    DriverStation.startDataLog(DataLogManager.getLog());
-
+    m_robotContainer.m_limeLight.getX(); 
+    m_robotContainer.m_limeLight.getY(); 
+    m_robotContainer.m_limeLight.getArea(); 
     CommandScheduler.getInstance().run();
   }
 
@@ -104,9 +84,7 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {
-    
-  }
+  public void teleopPeriodic() {}
 
   @Override
   public void testInit() {
@@ -118,4 +96,3 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {}
 }
-
