@@ -14,6 +14,9 @@ import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
 import frc.robot.subsystems.Shooter;
+import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.DriverStation;
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -35,6 +38,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    // Starts recording to data log
+    DataLogManager.start();
 
 
 
@@ -56,6 +61,8 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     SmartDashboard.putNumber("Left RPM", m_robotContainer.m_Shooter.getLeftRPM());
     SmartDashboard.putNumber("Right RPM",m_robotContainer.m_Shooter.getRightRPM());
+
+    DriverStation.startDataLog(DataLogManager.getLog());
 
     CommandScheduler.getInstance().run();
   }

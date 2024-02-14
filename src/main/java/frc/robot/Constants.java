@@ -9,6 +9,9 @@ public final class Constants {
   public static final int SMART_LIMIT = 80;
   public static final double k = .6;
 
+  public static final double MAX_SPEED = 0.25;
+  public static final double K_TURN = 0.25;
+
   public static final class DriveConstants {
 
     public static final int kFrontLeftMotorPort = 1;
