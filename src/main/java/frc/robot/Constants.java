@@ -55,6 +55,11 @@ public final class Constants {
     public static final double intakeBeltSpeed = 1.2; 
   }
 
+  public static final class FlapperConstants {
+    public static final int kFlapperMotorPort = 6;
+    public static final double kFlapperSpeed = 0.3;
+  }
+
 
 
 }
