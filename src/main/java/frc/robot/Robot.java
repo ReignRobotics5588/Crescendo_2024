@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.math.trajectory.Trajectory; 
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
@@ -37,7 +38,7 @@ public class Robot extends TimedRobot {
    * 
    */
 
-   String trajectoryJSON = "vendordeps/pathweaver.json";
+   String trajectoryJSON = "../PathWeaver/pathweaver.json";
    Trajectory trajectory = new Trajectory(); 
   @Override
   public void robotInit() {
