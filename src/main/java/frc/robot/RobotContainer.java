@@ -41,6 +41,12 @@ public class RobotContainer {
   private final Command m_shortCommand = new DriveCommand(m_Drivetrain, 10, 0.2);
   private final Command m_longCommand = new DriveCommand(m_Drivetrain, 80, 0.7);
 
+  private double robot_speed(double axis){
+    double speed = Math.sqrt(Math.abs(axis)) * Math.signum(axis); 
+    if (speed <= 0.01){return 0;}
+    else {return speed;}
+  }
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Put Some buttons on the SmartDashboard
@@ -55,7 +61,7 @@ public class RobotContainer {
 
     // Assign default commands
     m_Drivetrain.setDefaultCommand(
-        new RunCommand(() ->   m_Drivetrain.arcadeDrive( ( m_driverController.getRawAxis(1)*.75), ( m_driverController.getRawAxis(4)*.75)),
+        new RunCommand(() ->   m_Drivetrain.arcadeDrive( ( robot_speed(m_driverController.getRawAxis(1))), ( robot_speed(m_driverController.getRawAxis(4)*.75))),
             m_Drivetrain)); 
 
     m_Climber.setDefaultCommand(
@@ -106,9 +112,9 @@ public class RobotContainer {
     
     //Intake
     //Shooter Speaker
-    OPERATOR_B_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(-.50, -.50), ()->m_Shooter.run(0,0), m_Shooter));
+    OPERATOR_B_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.50, .50), ()->m_Shooter.run(0,0), m_Shooter));
 
-    OPERATOR_Y_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(-.65, -.65), ()->m_Shooter.run(0,0), m_Shooter));
+    OPERATOR_Y_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.65, .65), ()->m_Shooter.run(0,0), m_Shooter));
     OPERATOR_rBumper.whileTrue(Commands.startEnd(()-> m_Shooter.run(-.09, -.09), ()->m_Shooter.run(0,0), m_Shooter));
     
     DRIVER_lBumper.whileTrue(Commands.startEnd(()->m_Intake.run(0.7), ()->m_Intake.run(0), m_Intake));

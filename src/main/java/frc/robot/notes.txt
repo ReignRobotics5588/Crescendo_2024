@@ -6,4 +6,5 @@ https://github.com/Team5705/2022/tree/main/2022RobotCode/Paths
 Stuff to do at Tahoma
 
 - ? Trajectory generation (https://docs.wpilib.org/en/stable/docs/software/pathplanning/trajectory-tutorial/trajectory-tutorial-overview.html)
-- Specify measurements for PathWeaver 
+
+https://deep-blue-training.readthedocs.io/en/latest/section-7/pathweaver/

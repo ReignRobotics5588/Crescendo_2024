@@ -3,13 +3,16 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
-
+import java.io.File;
+import java.nio.file.Path;
+import edu.wpi.first.wpilibj.Filesystem; 
+import java.io.IOException; 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.math.trajectory.Trajectory; 
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
@@ -38,8 +41,10 @@ public class Robot extends TimedRobot {
    * 
    */
 
-   String trajectoryJSON = "../PathWeaver/pathweaver.json";
+   String trajectoryJSON = "PathWeaver/Output/main_red.wpilib.json";
    Trajectory trajectory = new Trajectory(); 
+
+
   @Override
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
@@ -48,8 +53,13 @@ public class Robot extends TimedRobot {
     // Starts recording to data log
     DataLogManager.start();
 
-
-
+    try {
+      Path red_path = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON); 
+      trajectory = TrajectoryUtil.fromPathweaverJson(red_path); 
+    }
+    catch(IOException ex){
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+    }
 
   }
 
