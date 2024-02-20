@@ -6,7 +6,6 @@ import frc.robot.subsystems.Drivetrain;
 
 import com.pathplanner.lib.auto.*;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 
 /** An example command that uses an example subsystem. */
 public class DriveCommand extends Command {
@@ -14,6 +13,7 @@ public class DriveCommand extends Command {
 
 
   private final Drivetrain m_drivetrain;
+
   private final int m_distance;
   private final double m_speed;
   private double origin;
@@ -30,6 +30,7 @@ public class DriveCommand extends Command {
     m_drivetrain = DriveSubsystem;
     m_distance = d;
     m_speed = s;
+
 
     addRequirements(m_drivetrain);
   }

@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -29,7 +31,7 @@ public class RobotContainer {
   public final Shooter m_Shooter = new Shooter();
   private final Drivetrain m_Drivetrain = new Drivetrain();
   private final Climber m_Climber = new Climber(); 
-  private final Flapper m_Flapper = new Flapper();
+  //private final Flapper m_Flapper = new Flapper();
 
 
   private final XboxController m_driverController = new XboxController(0);
@@ -37,9 +39,9 @@ public class RobotContainer {
 
   private final SendableChooser<Command> m_chooser;
 
-  private final Command m_autonomousCommand = new DriveCommand(m_Drivetrain, 60, 0.7);
-  private final Command m_shortCommand = new DriveCommand(m_Drivetrain, 10, 0.2);
-  private final Command m_longCommand = new DriveCommand(m_Drivetrain, 80, 0.7);
+  private final Command m_autonomousCommand = new DriveCommand(m_Drivetrain, -60, -0.7);
+  private final Command m_shortCommand = new DriveCommand(m_Drivetrain, -8, -0.3);
+  private final Command m_longCommand = new DriveCommand(m_Drivetrain, -240, -0.7);
 
   private double robot_speed(double axis){
     double speed = Math.sqrt(Math.abs(axis)) * Math.signum(axis); 
@@ -120,8 +122,8 @@ public class RobotContainer {
     DRIVER_lBumper.whileTrue(Commands.startEnd(()->m_Intake.run(0.7), ()->m_Intake.run(0), m_Intake));
     DRIVER_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Intake.run(-.7), ()->m_Intake.run(0), m_Intake));
     
-    OPERATOR_A_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
-    OPERATOR_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(-FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
+    //OPERATOR_A_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
+    //OPERATOR_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(-FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
   }
 
     // Connect the buttons to commands
@@ -137,4 +139,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() { 
     return m_chooser.getSelected();
   }
+
+
 };

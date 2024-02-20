@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+
 import java.io.File;
 import java.nio.file.Path;
 import edu.wpi.first.wpilibj.Filesystem; 
@@ -13,6 +14,13 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
@@ -33,6 +41,7 @@ public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
+  private DifferentialDriveOdometry m_odometry; 
 
 
   /**
@@ -60,6 +69,8 @@ public class Robot extends TimedRobot {
     catch(IOException ex){
       DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
     }
+
+   // m_odometry = new DifferentialDriveOdometry(new Rotation2d(), m_Drivetrain.getLeftEncoderDistance(), m_Drivetrain.getRighttEncoderDistance()); 
 
   }
 
