@@ -29,7 +29,7 @@ public class RobotContainer {
   public final Shooter m_Shooter = new Shooter();
   private final Drivetrain m_Drivetrain = new Drivetrain();
   private final Climber m_Climber = new Climber(); 
-  private final Flapper m_Flapper = new Flapper();
+ // private final Flapper m_Flapper = new Flapper();
 
 
   private final XboxController m_driverController = new XboxController(0);
@@ -55,8 +55,7 @@ public class RobotContainer {
 
     // Assign default commands
     m_Drivetrain.setDefaultCommand(
-        new RunCommand(() ->   m_Drivetrain.arcadeDrive( ( m_driverController.getRawAxis(1)*.75), ( m_driverController.getRawAxis(4)*.75)),
-            m_Drivetrain)); 
+        new RunCommand(() ->   m_Drivetrain.arcadeDrive(Math.abs( m_driverController.getRawAxis(1))>0.1? (Math.sqrt(Math.abs( m_driverController.getRawAxis(1))) * Math.signum(m_driverController.getRawAxis(1))):0, Math.abs(  m_driverController.getRawAxis(4))>0.1? (Math.sqrt( Math.abs(m_driverController.getRawAxis(4))) * Math.signum(m_driverController.getRawAxis(4))):0  ), m_Drivetrain)); 
 
     m_Climber.setDefaultCommand(
         new RunCommand(() -> m_Climber.setSpeed(m_operatorController.getRawAxis(1)*.5),m_Climber)); 
@@ -106,16 +105,16 @@ public class RobotContainer {
     
     //Intake
     //Shooter Speaker
-    OPERATOR_B_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(-.50, -.50), ()->m_Shooter.run(0,0), m_Shooter));
+    OPERATOR_B_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.50, .50), ()->m_Shooter.run(0,0), m_Shooter));
 
-    OPERATOR_Y_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(-.65, -.65), ()->m_Shooter.run(0,0), m_Shooter));
-    OPERATOR_rBumper.whileTrue(Commands.startEnd(()-> m_Shooter.run(-.09, -.09), ()->m_Shooter.run(0,0), m_Shooter));
+    OPERATOR_Y_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.65, .65), ()->m_Shooter.run(0,0), m_Shooter));
+    OPERATOR_rBumper.whileTrue(Commands.startEnd(()-> m_Shooter.run(.09, .09), ()->m_Shooter.run(0,0), m_Shooter));
     
     DRIVER_lBumper.whileTrue(Commands.startEnd(()->m_Intake.run(0.7), ()->m_Intake.run(0), m_Intake));
     DRIVER_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Intake.run(-.7), ()->m_Intake.run(0), m_Intake));
     
-    OPERATOR_A_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
-    OPERATOR_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(-FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
+    //OPERATOR_A_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
+    //OPERATOR_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(-FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
   }
 
     // Connect the buttons to commands
