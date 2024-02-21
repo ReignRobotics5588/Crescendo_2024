@@ -41,7 +41,6 @@ public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
-  private DifferentialDriveOdometry m_odometry; 
 
 
   /**
@@ -50,10 +49,6 @@ public class Robot extends TimedRobot {
    * 
    */
 
-   String trajectoryJSON = "PathWeaver/Output/main_red.wpilib.json";
-   Trajectory trajectory = new Trajectory(); 
-
-
   @Override
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
@@ -61,14 +56,6 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     // Starts recording to data log
     DataLogManager.start();
-
-    try {
-      Path red_path = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON); 
-      trajectory = TrajectoryUtil.fromPathweaverJson(red_path); 
-    }
-    catch(IOException ex){
-      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
-    }
 
    // m_odometry = new DifferentialDriveOdometry(new Rotation2d(), m_Drivetrain.getLeftEncoderDistance(), m_Drivetrain.getRighttEncoderDistance()); 
 

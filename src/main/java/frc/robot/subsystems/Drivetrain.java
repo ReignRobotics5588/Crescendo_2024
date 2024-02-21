@@ -20,10 +20,22 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.SPI;
+
+import java.io.IOException;
+import java.nio.file.Path;
+
 import com.kauailabs.navx.frc.AHRS;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
+import edu.wpi.first.math.trajectory.Trajectory;
+
 
 
 public class Drivetrain extends SubsystemBase {
@@ -47,9 +59,15 @@ public class Drivetrain extends SubsystemBase {
   DifferentialDriveOdometry m_odometry;
   //may need to reset here
 
+
+  String trajectoryJSON = "../deploy/Paths/main_red.wpilib.json";
+  Trajectory trajectory = new Trajectory(); 
+
+
   Pose2d m_pose;
 
   public Drivetrain() {
+
     frontLeftMotor.setInverted(false);
     frontRightMotor.setInverted(true);
     backLeftMotor.setInverted(false);
@@ -86,6 +104,14 @@ public class Drivetrain extends SubsystemBase {
     m_pose = new Pose2d();
     m_odometry = new DifferentialDriveOdometry(rotation2D, getLeftEncoderDistance(), getRighttEncoderDistance(), m_pose);
     // ((Object) m_drive).setRightSideInverted(false);
+
+     try {
+      Path red_path = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON); 
+      trajectory = TrajectoryUtil.fromPathweaverJson(red_path); 
+    }
+    catch(IOException ex){
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+    }
    
   }
 

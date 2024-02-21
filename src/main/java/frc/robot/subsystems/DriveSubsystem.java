@@ -48,6 +48,7 @@ public class DriveSubsystem extends SubsystemBase {
   public ChassisSpeeds m_speeds = new ChassisSpeeds(); // uhhhh 
   public DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(m_ahrs.getRotation2d(), getLeftEncoderDistance(), getRighttEncoderDistance());
   public Pose2d m_pose = new Pose2d(); 
+  
 
 
   public DriveSubsystem() {
@@ -108,6 +109,8 @@ public class DriveSubsystem extends SubsystemBase {
 
     // pose stuff
     m_pose = m_odometry.update(m_ahrs.getRotation2d(), getLeftEncoderDistance(), getRighttEncoderDistance()); 
+
+    
 
   }
 
