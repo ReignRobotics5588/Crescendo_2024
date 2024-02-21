@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.FlapperConstants;
 import frc.robot.Constants.IntakeConstants;
@@ -15,8 +17,14 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import java.io.IOException;
+import java.nio.file.Path;
+
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -33,6 +41,9 @@ public class RobotContainer {
   private final Climber m_Climber = new Climber(); 
   //private final Flapper m_Flapper = new Flapper();
 
+
+  String trajectoryJSON = "/Paths/main_red.wpilib.json";
+  Trajectory trajectory = new Trajectory(); 
 
   private final XboxController m_driverController = new XboxController(0);
   private final XboxController m_operatorController = new XboxController(1); 
@@ -79,6 +90,15 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
+
+    try {
+      Path red_path = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON); 
+      trajectory = TrajectoryUtil.fromPathweaverJson(red_path); 
+    }
+    catch(IOException ex){
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+    }
+
   }
 
   /**

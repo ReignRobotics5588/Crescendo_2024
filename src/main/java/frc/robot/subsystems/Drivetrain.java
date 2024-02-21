@@ -60,10 +60,6 @@ public class Drivetrain extends SubsystemBase {
   //may need to reset here
 
 
-  String trajectoryJSON = "../deploy/Paths/main_red.wpilib.json";
-  Trajectory trajectory = new Trajectory(); 
-
-
   Pose2d m_pose;
 
   public Drivetrain() {
@@ -104,14 +100,6 @@ public class Drivetrain extends SubsystemBase {
     m_pose = new Pose2d();
     m_odometry = new DifferentialDriveOdometry(rotation2D, getLeftEncoderDistance(), getRighttEncoderDistance(), m_pose);
     // ((Object) m_drive).setRightSideInverted(false);
-
-     try {
-      Path red_path = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON); 
-      trajectory = TrajectoryUtil.fromPathweaverJson(red_path); 
-    }
-    catch(IOException ex){
-      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
-    }
    
   }
 
