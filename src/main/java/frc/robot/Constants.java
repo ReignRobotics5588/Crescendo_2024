@@ -25,6 +25,8 @@ public final class Constants {
     public static final double kEncoderDistancePerPulse =
         // Assumes the encoders are directly mounted on the wheel shafts
         (kWheelDiameterInches * Math.PI) / (double) kEncoderCPR;
+    public static final double kAutoMaxVelocity_InMeters = 4.5; 
+    public static final double kAutoMaxAcceleration_InMeters = 1.5; 
   }
 
   public static final class ClimberConstants{

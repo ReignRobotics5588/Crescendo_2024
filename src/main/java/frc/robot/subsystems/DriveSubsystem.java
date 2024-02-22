@@ -22,7 +22,9 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.geometry.Pose2d; 
 import com.revrobotics.CANSparkLowLevel.MotorType;
-
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -152,6 +154,10 @@ public class DriveSubsystem extends SubsystemBase {
 
   public Pose2d getPose(){
     return m_odometry.getPoseMeters();
+  }
+
+  public void resetOdometry(Pose2d p){
+    m_odometry.resetPosition(m_ahrs.getRotation2d(), getLeftEncoderDistance(), getRighttEncoderDistance(), p);
   }
 
   // Configure AutoBuilder last

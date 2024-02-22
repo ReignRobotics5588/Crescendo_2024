@@ -153,5 +153,9 @@ public class Drivetrain extends SubsystemBase {
   public void setMaxOutput(double maxOutput) {
     m_drive.setMaxOutput(maxOutput);
   }
+
+  public void resetOdometry(Pose2d p){
+    m_odometry.resetPosition(m_ahrs.getRotation2d(), getLeftEncoderDistance(), getRighttEncoderDistance(), p);
+  }
         
 }

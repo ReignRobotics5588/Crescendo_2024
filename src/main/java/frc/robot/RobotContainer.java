@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.FlapperConstants;
 import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -24,6 +25,7 @@ import java.nio.file.Path;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
 
 /**
@@ -54,6 +56,11 @@ public class RobotContainer {
   private final Command m_shortCommand = new DriveCommand(m_Drivetrain, -8, -0.3);
   private final Command m_longCommand = new DriveCommand(m_Drivetrain, -240, -0.7);
 
+  // PathWeaver
+  private void get_PathWeaverCommand(){
+    return Commands.runOnce(() -> m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose()))
+  }
+
   private double robot_speed(double axis){
     double speed = Math.sqrt(Math.abs(axis)) * Math.signum(axis); 
     if (speed <= 0.01){return 0;}
@@ -74,8 +81,13 @@ public class RobotContainer {
 
     // Assign default commands
     m_Drivetrain.setDefaultCommand(
+      /**
         new RunCommand(() ->   m_Drivetrain.arcadeDrive( ( robot_speed(m_driverController.getRawAxis(1))), ( robot_speed(m_driverController.getRawAxis(4)*.75))),
-            m_Drivetrain)); 
+            m_Drivetrain)
+      */
+
+      new RunCommand(() -> get_PathWeaverCommand())
+      ); 
 
     m_Climber.setDefaultCommand(
         new RunCommand(() -> m_Climber.setSpeed(m_operatorController.getRawAxis(1)*.5),m_Climber)); 
