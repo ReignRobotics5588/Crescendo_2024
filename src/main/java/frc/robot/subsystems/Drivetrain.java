@@ -154,6 +154,19 @@ public class Drivetrain extends SubsystemBase {
     m_drive.setMaxOutput(maxOutput);
   }
 
+
+  public double getGyroAngle(){
+    return m_ahrs.getAngle();
+  }
+
+  public double getGyroPitch(){
+    return m_ahrs.getPitch();
+  }
+
+  public Pose2d getPose(){
+    return m_odometry.getPoseMeters();
+  }
+
   public void resetOdometry(Pose2d p){
     m_odometry.resetPosition(m_ahrs.getRotation2d(), getLeftEncoderDistance(), getRighttEncoderDistance(), p);
   }

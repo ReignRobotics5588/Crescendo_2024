@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
+
 public final class Constants {
 
   public static final int SMART_LIMIT = 80;
@@ -25,8 +29,11 @@ public final class Constants {
     public static final double kEncoderDistancePerPulse =
         // Assumes the encoders are directly mounted on the wheel shafts
         (kWheelDiameterInches * Math.PI) / (double) kEncoderCPR;
-    public static final double kAutoMaxVelocity_InMeters = 4.5; 
-    public static final double kAutoMaxAcceleration_InMeters = 1.5; 
+
+    public static final double ksVolts = 0.0; 
+    public static final double kvVoltSecondsPerMeter = 0.0; 
+    public static final double kaVoltSecondsSquaredPerMeter = 0.0; 
+    public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(2.5); 
   }
 
   public static final class ClimberConstants{
@@ -46,6 +53,12 @@ public final class Constants {
 
     public static final double autoDistance = 0.0; // inches 
     public static final double autoSpeed = 0.0; 
+
+    public static final double kAutoMaxVelocity_InMeters = 4.5; 
+    public static final double kAutoMaxAcceleration_InMeters = 1.5; 
+    public static final double kRamseteB = 0; 
+    public static final double kRamseteZeta = 0; 
+    
 
   }
 

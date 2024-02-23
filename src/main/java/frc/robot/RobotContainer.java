@@ -9,8 +9,10 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.FlapperConstants;
 import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.*;
@@ -18,15 +20,25 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.RamseteCommand; 
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -43,9 +55,8 @@ public class RobotContainer {
   private final Climber m_Climber = new Climber(); 
   //private final Flapper m_Flapper = new Flapper();
 
+  DifferentialDriveKinematics drivetrain_kinematics = new DifferentialDriveKinematics(2.5); 
 
-  String trajectoryJSON = "/Paths/main_red.wpilib.json";
-  Trajectory trajectory = new Trajectory(); 
 
   private final XboxController m_driverController = new XboxController(0);
   private final XboxController m_operatorController = new XboxController(1); 
@@ -56,10 +67,46 @@ public class RobotContainer {
   private final Command m_shortCommand = new DriveCommand(m_Drivetrain, -8, -0.3);
   private final Command m_longCommand = new DriveCommand(m_Drivetrain, -240, -0.7);
 
-  // PathWeaver
-  private void get_PathWeaverCommand(){
-    return Commands.runOnce(() -> m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose()))
+    /**
+   * Use this to pass the autonomous command to the main {@link Robot} class.
+   *
+   * @return the command to run in autonomous
+   */
+  public Command getPathWeaverCommand() {
+    // Create a voltage constraint to ensure we don't accelerate too fast
+
+    String trajectoryJSON = "/Paths/main_red.wpilib.json";
+    Trajectory trajectory = new Trajectory(); 
+
+    Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+    trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+
+    RamseteCommand ramseteCommand =
+        new RamseteCommand(
+            trajectory,
+            m_Drivetrain::getPose,
+            new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
+
+            new SimpleMotorFeedforward(
+                DriveConstants.ksVolts,
+                DriveConstants.kvVoltSecondsPerMeter,
+                DriveConstants.kaVoltSecondsSquaredPerMeter),
+            DriveConstants.kDriveKinematics,
+            m_Drivetrain::getWheelSpeeds,
+            new PIDController(DriveConstants.kPDriveVel, 0, 0),
+            new PIDController(DriveConstants.kPDriveVel, 0, 0),
+            // RamseteCommand passes volts to the callback
+            m_Drivetrain::tankDriveVolts,
+            m_Drivetrain);
+
+    // Reset odometry to the initial pose of the trajectory, run path following
+    // command, then stop at the end.
+    return Commands.runOnce(() -> m_Drivetrain.resetOdometry(trajectory.getInitialPose()))
+        .andThen(ramseteCommand)
+        .andThen(Commands.runOnce(() -> m_Drivetrain.tankDriveVolts(0, 0)));
   }
+
+
 
   private double robot_speed(double axis){
     double speed = Math.sqrt(Math.abs(axis)) * Math.signum(axis); 
@@ -76,17 +123,16 @@ public class RobotContainer {
     m_chooser.setDefaultOption("Default", m_autonomousCommand); 
     m_chooser.addOption("Short", m_shortCommand);
     m_chooser.addOption("Long", m_longCommand);
+    m_chooser.addOption("PathWeaver", ramsete_command); 
 
     SmartDashboard.putData(m_chooser);
 
     // Assign default commands
     m_Drivetrain.setDefaultCommand(
-      /**
+      
         new RunCommand(() ->   m_Drivetrain.arcadeDrive( ( robot_speed(m_driverController.getRawAxis(1))), ( robot_speed(m_driverController.getRawAxis(4)*.75))),
             m_Drivetrain)
-      */
-
-      new RunCommand(() -> get_PathWeaverCommand())
+      
       ); 
 
     m_Climber.setDefaultCommand(
