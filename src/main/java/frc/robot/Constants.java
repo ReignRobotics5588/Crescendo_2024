@@ -57,7 +57,7 @@ public final class Constants {
 
   public static final class FlapperConstants {
     public static final int kFlapperMotorPort = 6;
-    public static final double kFlapperSpeed = 0.3;
+    public static final double kFlapperSpeed = 1;
   }
 
 

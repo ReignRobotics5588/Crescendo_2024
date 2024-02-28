@@ -29,7 +29,7 @@ public class RobotContainer {
   public final Shooter m_Shooter = new Shooter();
   private final Drivetrain m_Drivetrain = new Drivetrain();
   private final Climber m_Climber = new Climber(); 
- // private final Flapper m_Flapper = new Flapper();
+  private final Flapper m_Flapper = new Flapper();
 
 
   private final XboxController m_driverController = new XboxController(0);
@@ -113,8 +113,8 @@ public class RobotContainer {
     DRIVER_lBumper.whileTrue(Commands.startEnd(()->m_Intake.run(0.7), ()->m_Intake.run(0), m_Intake));
     DRIVER_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Intake.run(-.7), ()->m_Intake.run(0), m_Intake));
     
-    //OPERATOR_A_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
-    //OPERATOR_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(-FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
+    OPERATOR_A_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
+    OPERATOR_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(-FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
   }
 
     // Connect the buttons to commands
