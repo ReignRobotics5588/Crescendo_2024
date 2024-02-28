@@ -53,6 +53,7 @@ public final class Constants {
     public static final int sensorPort = 6;
     public static final int lightPort = 7;
     public static final double intakeBeltSpeed = 1.2; 
+    public static final int minRPM = 3000; 
   }
 
   public static final class FlapperConstants {

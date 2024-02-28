@@ -41,7 +41,7 @@ public class Intake extends SubsystemBase {
         double leftRPM = shooter.getLeftRPM();
         double rightRPM = shooter.getRightRPM();
 
-        while(leftRPM < 500 && rightRPM < 500){
+        while(leftRPM < IntakeConstants.minRPM && rightRPM < IntakeConstants.minRPM){
             m_leftIntakeMotor.stopMotor();
             m_rightIntakeMotor.stopMotor();
         }
