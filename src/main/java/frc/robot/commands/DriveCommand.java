@@ -2,6 +2,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Drivetrain;
 
 import com.pathplanner.lib.auto.*;
@@ -13,9 +14,10 @@ public class DriveCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
 
-  private final Drivetrain m_drivetrain;
+  private final DriveSubsystem m_drivetrain;
   private final int m_distance;
   private final double m_speed;
+  private double m_rotation = 0; 
   private double origin;
   private double target;
 
@@ -25,11 +27,20 @@ public class DriveCommand extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveCommand(Drivetrain DriveSubsystem, int d, double s) {
+  public DriveCommand(DriveSubsystem dd, int d, double s) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_drivetrain = DriveSubsystem;
+    m_drivetrain = dd;
     m_distance = d;
     m_speed = s;
+
+    addRequirements(m_drivetrain);
+  }
+
+  public DriveCommand(DriveSubsystem dd, int d, double s, double a){
+    m_drivetrain = dd;
+    m_distance = d;
+    m_speed = s;
+    m_rotation = a; 
 
     addRequirements(m_drivetrain);
   }
@@ -47,8 +58,26 @@ public class DriveCommand extends Command {
   @Override
   public void execute() {
     // get ChassisSpeeds arguments and move 
+    // m_drivetrain.tankDrive(m_speed, m_speed);
+
+    if (m_rotation > 0){
+
+      double original = m_drivetrain.m_ahrs.getAngle(); 
+
+      while(Math.abs(m_drivetrain.m_ahrs.getAngle() - original) < Math.abs(original)){
+        // positive counter-clockwise 
+        if (m_rotation > 0){
+          m_drivetrain.tankDrive(m_speed, 0);
+        }
+        else {
+           m_drivetrain.tankDrive(0, m_speed);
+        }
+
+      }
+      
+    }
+
     m_drivetrain.tankDrive(m_speed, m_speed);
-    
     
   }
 

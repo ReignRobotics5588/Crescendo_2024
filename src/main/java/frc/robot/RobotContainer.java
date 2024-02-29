@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Autos.ShootAuto;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -27,7 +28,7 @@ public class RobotContainer {
   //private final Drivetrain m_drivetrain = new Drivetrain();
   private final Intake m_Intake = new Intake();
   public final Shooter m_Shooter = new Shooter();
-  private final Drivetrain m_Drivetrain = new Drivetrain();
+  private final DriveSubsystem m_Drivetrain = new DriveSubsystem();
   private final Climber m_Climber = new Climber(); 
   private final Flapper m_Flapper = new Flapper();
 
@@ -41,6 +42,7 @@ public class RobotContainer {
   private final Command m_shortCommand = new DriveCommand(m_Drivetrain, 10, 0.2);
   private final Command m_longCommand = new DriveCommand(m_Drivetrain, 80, 0.7);
 
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Put Some buttons on the SmartDashboard
@@ -50,6 +52,7 @@ public class RobotContainer {
     m_chooser.setDefaultOption("Default", m_autonomousCommand); 
     m_chooser.addOption("Short", m_shortCommand);
     m_chooser.addOption("Long", m_longCommand);
+    m_chooser.addOption("Shooter", new ShootAuto(m_Drivetrain, m_Shooter, m_Intake));
 
     SmartDashboard.putData(m_chooser);
 
