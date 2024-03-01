@@ -24,7 +24,7 @@ public class LimelightTrack extends Command{
           if(!m_LimelightSubsystem.hasTarget()){
             m_DriveSubsystem.tankDrive(0,0);//uhhhhh ask zach
           }
-          else{
+          else {
             System.out.print(m_LimelightSubsystem.getX());
             double speed = m_LimelightSubsystem.getX()*Constants.K_TURN;
             speed = MathUtil.clamp(speed, -1 * Constants.MAX_SPEED, Constants.MAX_SPEED);//speed, low, high
