@@ -24,6 +24,7 @@ public class DriveCommand extends Command {
 
   /*
    * Creates a new ExampleCommand.
+   * d(distance) is inches
    *
    * @param subsystem The subsystem used by this command.
    */

@@ -18,8 +18,7 @@ public class ShootAuto extends SequentialCommandGroup {
             (Command) new DriveCommand(drivetrain, 0, 0.5, -90),
             (Command) new DriveCommand(drivetrain, 200, 0.7), 
             (Command) new DriveCommand(drivetrain, 0, 0.5, -90),
-            Commands.startEnd(()-> shooter.run(-.65, -.65), ()->shooter.run(0,0), shooter),
-            Commands.startEnd(()->intake.run(0.7), ()->intake.run(0), intake)
+            new Shoot(shooter, intake)
 
         );
     }
