@@ -7,7 +7,6 @@ package frc.robot;
 public final class Constants {
 
   public static final int SMART_LIMIT = 80;
-  public static final double k = .6;
 
   public static final double MAX_SPEED = 0.25;
   public static final double K_TURN = 0.25;
@@ -58,7 +57,7 @@ public final class Constants {
 
   public static final class FlapperConstants {
     public static final int kFlapperMotorPort = 6;
-    public static final double kFlapperSpeed = 0.3;
+    public static final double kFlapperSpeed = 1;
   }
 
 

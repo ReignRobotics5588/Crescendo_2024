@@ -90,7 +90,13 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void arcadeDrive(double speed, double rotation) {
-    m_drive.arcadeDrive(speed, rotation);
+    double speed2 = 0;
+    double rotation2 = 0;
+    if ((Math.abs(speed) > 0.1) || (Math.abs(rotation))  > 0.1) {
+      speed2 = speed * speed * Math.signum(speed); 
+      rotation2 = rotation * rotation * Math.signum(rotation);
+    }
+    m_drive.arcadeDrive(speed2, rotation2);
   }
 
   public void tankDrive(double leftSpeed, double rightSpeed) {

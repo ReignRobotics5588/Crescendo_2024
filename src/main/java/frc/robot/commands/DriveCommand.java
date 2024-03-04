@@ -49,7 +49,6 @@ public class DriveCommand extends Command {
     // get ChassisSpeeds arguments and move 
     m_drivetrain.tankDrive(m_speed, m_speed);
     
-    
   }
 
   // Called once the command ends or is interrupted.
@@ -62,6 +61,13 @@ public class DriveCommand extends Command {
   @Override
   public boolean isFinished() {
     double current = m_drivetrain.getMeanEncoderDistance();
-    return Math.abs(current) >= target; 
+  
+    if (m_speed > 0) {
+      return current >= target;
+    } else {
+      return current <= target;
+    }
+    
   }
+
 }
