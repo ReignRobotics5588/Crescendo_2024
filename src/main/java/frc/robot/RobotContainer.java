@@ -116,8 +116,8 @@ public class RobotContainer {
     OPERATOR_Y_BUTTON_XBOX.whileTrue(m_shootHigh);
     OPERATOR_rBumper.whileTrue(Commands.startEnd(()-> m_Shooter.run(-.09, -.09), ()->m_Shooter.run(0,0), m_Shooter));
     
-    DRIVER_lBumper.whileTrue(Commands.startEnd(()->m_Intake.run(0.7), ()->m_Intake.run(0), m_Intake));
-    DRIVER_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Intake.run(-.7), ()->m_Intake.run(0), m_Intake));
+    DRIVER_lBumper.whileTrue(Commands.startEnd(()->m_Intake.run(0.7,m_Shooter), ()->m_Intake.run(0, m_Shooter), m_Intake));
+    DRIVER_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Intake.run(-.7,m_Shooter), ()->m_Intake.run(0, m_Shooter), m_Intake));
     
     OPERATOR_A_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
     OPERATOR_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(-FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
