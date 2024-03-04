@@ -19,7 +19,7 @@ public class Shoot extends Command {
   @Override
   public void initialize() {
     m_shoot.run(-.65, -.65);
-    m_intake.run(0.7);
+    m_intake.run(0.7, m_shoot);
   }
 
   @Override
@@ -30,7 +30,7 @@ public class Shoot extends Command {
   @Override
   public void end(boolean interrupted) {
     m_shoot.run(0.0, 0.0);
-    m_intake.run(0.0); 
+    m_intake.run(0.0, m_shoot); 
   }
 
 }

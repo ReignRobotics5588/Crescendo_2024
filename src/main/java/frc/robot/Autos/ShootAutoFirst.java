@@ -21,9 +21,7 @@ public class ShootAutoFirst extends SequentialCommandGroup{
             (Command) new DriveCommand(drivetrain1, 144, 0.7),
             (Command) new DriveCommand(drivetrain1, 0, 0.5, -90),
             (Command) new DriveCommand(drivetrain1, 144, 0.7),
-            new Shoot(shooter1, intake1)
-
-            
+            new Shoot(shooter1, intake1)       
             
         ); 
     }
