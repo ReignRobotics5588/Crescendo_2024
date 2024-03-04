@@ -8,14 +8,7 @@ public class ShootLow extends Command {
   // The subsystem the command runs on
   private final Shooter m_shoot;
   private final Intake m_intake; 
-  private Flapper m_flapper = null; 
-
-  public ShootLow(Shooter s, Intake i) {
-    m_shoot = s;
-    m_intake = i;
-    addRequirements(m_shoot);
-    addRequirements(m_intake);
-  }
+  private final Flapper m_flapper; 
 
   public ShootLow(Shooter s, Intake i, Flapper f) {
     m_shoot = s;
@@ -29,9 +22,7 @@ public class ShootLow extends Command {
   @Override
   public void initialize() {
     m_shoot.run(-.65, -.65);
-    if (!m_flapper.equals(null)){
-      m_flapper.run(0); //change
-    }
+    m_flapper.run(0); //change
     m_intake.run(0.7, m_shoot);
   }
 
@@ -44,9 +35,7 @@ public class ShootLow extends Command {
   public void end(boolean interrupted) {
     m_shoot.run(0.0, 0.0);
     m_intake.run(0.0, m_shoot); 
-    if (!m_flapper.equals(null)){
-      m_flapper.run(0); //change
-    }
+    m_flapper.run(0); //change
   }
 
 }
