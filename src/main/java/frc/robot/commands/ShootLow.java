@@ -4,20 +4,20 @@ import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 
 
-public class Shoot extends Command {
+public class ShootLow extends Command {
   // The subsystem the command runs on
   private final Shooter m_shoot;
   private final Intake m_intake; 
   private Flapper m_flapper = null; 
 
-  public Shoot(Shooter s, Intake i) {
+  public ShootLow(Shooter s, Intake i) {
     m_shoot = s;
     m_intake = i;
     addRequirements(m_shoot);
     addRequirements(m_intake);
   }
 
-  public Shoot(Shooter s, Intake i, Flapper f) {
+  public ShootLow(Shooter s, Intake i, Flapper f) {
     m_shoot = s;
     m_intake = i;
     m_flapper = f; 
@@ -44,7 +44,9 @@ public class Shoot extends Command {
   public void end(boolean interrupted) {
     m_shoot.run(0.0, 0.0);
     m_intake.run(0.0, m_shoot); 
-    m_flapper.run(0);
+    if (!m_flapper.equals(null)){
+      m_flapper.run(0); //change
+    }
   }
 
 }

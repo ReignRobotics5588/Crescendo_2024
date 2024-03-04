@@ -2,7 +2,7 @@ package frc.robot.Autos;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.Shoot;
+import frc.robot.commands.ShootHigh;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Intake;
@@ -19,7 +19,7 @@ public class ShootAuto extends SequentialCommandGroup {
             (Command) new DriveCommand(drivetrain, 0, 0.5, -90),
             (Command) new DriveCommand(drivetrain, 200, 0.7), 
             (Command) new DriveCommand(drivetrain, 0, 0.5, -90),
-            new Shoot(shooter, intake)
+            new ShootHigh(shooter, intake)
 
         );
     }

@@ -42,7 +42,7 @@ public class RobotContainer {
   private final Command m_shortCommand = new DriveCommand(m_Drivetrain, 10, 0.2);
   private final Command m_longCommand = new DriveCommand(m_Drivetrain, 80, 0.7);
 
-  private final Command m_shootHigh = new Shoot(m_Shooter, m_Intake);
+  private final Command m_shootHigh = new ShootHigh(m_Shooter, m_Intake);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
