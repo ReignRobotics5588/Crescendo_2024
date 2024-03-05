@@ -9,12 +9,10 @@ public class IntakeWithBeam extends Command {
   // The subsystem the command runs on
   private final Shooter m_shoot;
   private final Intake m_intake; 
-  private final double speed; 
 
-  public IntakeWithBeam(Shooter s, Intake i, double ss) {
+  public IntakeWithBeam(Shooter s, Intake i) {
     m_shoot = s;
     m_intake = i;
-    speed = ss; 
     addRequirements(m_shoot);
     addRequirements(m_intake);
   }
@@ -29,7 +27,7 @@ public class IntakeWithBeam extends Command {
     // check 
     if (m_intake.sense()){
        while (m_shoot.getLeftRPM() < IntakeConstants.minRPM && m_shoot.getRightRPM() < IntakeConstants.minRPM) {
-            m_shoot.run(-.65,-.65);
+            m_shoot.run(-.65,-.65); // shouldn't run shooter
         }
 
         m_intake.runMotors(IntakeConstants.intakeBeltSpeed);
