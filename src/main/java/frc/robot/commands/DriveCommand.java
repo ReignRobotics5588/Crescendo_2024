@@ -66,14 +66,7 @@ public class DriveCommand extends Command {
       double original = m_drivetrain.m_ahrs.getAngle(); 
 
       while(Math.abs(m_drivetrain.m_ahrs.getAngle() - original) < Math.abs(original)){
-        // positive counter-clockwise 
-        if (m_rotation > 0){
-          m_drivetrain.tankDrive(m_speed, 0);
-        }
-        else {
-           m_drivetrain.tankDrive(0, m_speed);
-        }
-
+          m_drivetrain.arcadeDrive(m_speed, 0);
       }
       
     }
