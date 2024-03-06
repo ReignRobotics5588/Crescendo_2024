@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Autos.ShootAuto;
+import frc.robot.Autos.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -28,7 +28,7 @@ public class RobotContainer {
   //private final Drivetrain m_drivetrain = new Drivetrain();
   private final Intake m_Intake = new Intake();
   public final Shooter m_Shooter = new Shooter();
-  private final DriveSubsystem m_Drivetrain = new DriveSubsystem();
+  private final Drivetrain m_Drivetrain = new Drivetrain();
   private final Climber m_Climber = new Climber(); 
   private final Flapper m_Flapper = new Flapper();
 
@@ -42,7 +42,7 @@ public class RobotContainer {
   private final Command m_shortCommand = new DriveCommand(m_Drivetrain, 10, 0.2);
   private final Command m_longCommand = new DriveCommand(m_Drivetrain, 80, 0.7);
 
-  private final Command m_shootHigh = new ShootSpeaker(m_Shooter, m_Intake);
+  // private final Command m_shootHigh = new ShootSpeaker(m_Shooter, m_Intake);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -121,6 +121,7 @@ public class RobotContainer {
     
     OPERATOR_A_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
     OPERATOR_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(-FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
+    // bind climber
   }
 
     // Connect the buttons to commands

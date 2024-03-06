@@ -2,7 +2,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Drivetrain;
 
 import com.pathplanner.lib.auto.*;
@@ -14,7 +13,7 @@ public class DriveCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
 
-  private final DriveSubsystem m_drivetrain;
+  private final Drivetrain m_drivetrain;
   private final int m_distance;
   private final double m_speed;
   private double m_rotation = 0; 
@@ -28,7 +27,7 @@ public class DriveCommand extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveCommand(DriveSubsystem dd, int d, double s) {
+  public DriveCommand(Drivetrain dd, int d, double s) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drivetrain = dd;
     m_distance = d;
@@ -37,7 +36,7 @@ public class DriveCommand extends Command {
     addRequirements(m_drivetrain);
   }
 
-  public DriveCommand(DriveSubsystem dd, int d, double s, double a){
+  public DriveCommand(Drivetrain dd, int d, double s, double a){
     m_drivetrain = dd;
     m_distance = d;
     m_speed = s;

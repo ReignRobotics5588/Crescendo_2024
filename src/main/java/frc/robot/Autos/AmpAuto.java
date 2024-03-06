@@ -5,7 +5,7 @@ import frc.robot.Constants.IntakeConstants;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.IntakeWithBeam;
 import frc.robot.commands.ShootLow;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -14,7 +14,7 @@ import frc.robot.Constants.FlapperConstants;
 
 public class AmpAuto extends SequentialCommandGroup {
 
-    public AmpAuto(DriveSubsystem drivetrain, Shooter shooter, Intake intake, Flapper flapper){
+    public AmpAuto(Drivetrain drivetrain, Shooter shooter, Intake intake, Flapper flapper){
         // private final Command m_autonomousCommand = new DriveCommand(m_Drivetrain, 60, 0.7);
         // public DriveCommand(Drivetrain D, int d, double s, double a)
 
