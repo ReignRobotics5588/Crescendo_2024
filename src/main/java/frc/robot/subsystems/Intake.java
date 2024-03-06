@@ -16,14 +16,14 @@ public class Intake extends SubsystemBase {
     public Intake () {
         super();
     } 
-    public void run(double speed, Shooter shooter) {
+    public void run(double speed) {
         /*runMotors(speed);
         if (sense()) {
            runMotors(speed);
         } else {
             runMotors(0);
         }*/
-        runMotors(speed, shooter);
+        runMotors(speed);
     } 
     public boolean sense() {
         return m_intakeSensor.get();
@@ -31,7 +31,9 @@ public class Intake extends SubsystemBase {
     }
     // if break -> stop intake unless flywheel is running
 
-    public void runMotors(double speed, Shooter shooter) {
+    public void runMotors(double speed) {
+
+        /** 
 
         if (!sense()){
             m_leftIntakeMotor.set(-speed);
@@ -45,6 +47,7 @@ public class Intake extends SubsystemBase {
             m_leftIntakeMotor.stopMotor();
             m_rightIntakeMotor.stopMotor();
         }
+        */
         m_leftIntakeMotor.set(-speed);
         m_rightIntakeMotor.set(-speed);
 

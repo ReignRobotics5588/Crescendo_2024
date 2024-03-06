@@ -43,7 +43,7 @@ public class Drivetrain extends SubsystemBase {
   private RelativeEncoder m_backRightEncoder = backRightMotor.getEncoder();
   private RelativeEncoder m_backLeftEncoder = backLeftMotor.getEncoder();
 
-  AHRS m_ahrs = new AHRS(SPI.Port.kMXP);
+  public AHRS m_ahrs = new AHRS(SPI.Port.kMXP);
   DifferentialDriveOdometry m_odometry;
   //may need to reset here
 
