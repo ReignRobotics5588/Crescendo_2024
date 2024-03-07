@@ -25,10 +25,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   //private final Drivetrain m_drivetrain = new Drivetrain();
-  private final Intake m_Intake = new Intake();
+  final Intake m_Intake = new Intake();
   public final Shooter m_Shooter = new Shooter();
   private final Drivetrain m_Drivetrain = new Drivetrain();
-  private final Climber m_Climber = new Climber(); 
+  public final Climber m_Climber = new Climber(); 
   private final Flapper m_Flapper = new Flapper();
 
 
@@ -58,7 +58,7 @@ public class RobotContainer {
         new RunCommand(() ->   m_Drivetrain.arcadeDrive(m_driverController.getRawAxis(1), m_driverController.getRawAxis(4)), m_Drivetrain)); 
 
     m_Climber.setDefaultCommand(
-        new RunCommand(() -> m_Climber.setSpeed(m_operatorController.getRawAxis(1)*.5),m_Climber)); 
+        new RunCommand(() -> m_Climber.setSpeed(m_operatorController.getRawAxis(1),m_operatorController.getRawAxis(5)),m_Climber)); 
     
       // 0.52 percent power
       // 7 CAN ID forward
@@ -111,7 +111,7 @@ public class RobotContainer {
     OPERATOR_rBumper.whileTrue(Commands.startEnd(()-> m_Shooter.run(.1, .1), ()->m_Shooter.run(0,0), m_Shooter));
     
     DRIVER_lBumper.whileTrue(Commands.startEnd(()->m_Intake.run(0.7,m_Shooter), ()->m_Intake.run(0, m_Shooter), m_Intake));
-    DRIVER_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Intake.run(-.7,m_Shooter), ()->m_Intake.run(0, m_Shooter), m_Intake));
+    OPERATOR_lBumper.whileTrue(Commands.startEnd(()->m_Intake.run(-.7,m_Shooter), ()->m_Intake.run(0, m_Shooter), m_Intake));
     
     OPERATOR_A_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
     OPERATOR_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(-FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
