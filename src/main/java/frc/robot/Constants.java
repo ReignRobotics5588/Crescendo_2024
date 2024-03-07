@@ -50,8 +50,8 @@ public final class Constants {
   public static final class IntakeConstants {
     public static final int kRightMotorPort = 12;
     public static final int kLeftMotorPort = 11;
-     public static final int sensorPortOne = 5;
-    public static final int sensorPortTwo = 6;
+     public static final int sensorPortOne = 0;
+    public static final int sensorPortTwo = 1;
     public static final int lightPort = 7;
     public static final double intakeBeltSpeed = 0.7; 
     public static final int minRPM = 3000; 

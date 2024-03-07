@@ -19,7 +19,7 @@ public class ShootHigh extends Command {
 
   @Override
   public void initialize() {
-    m_shoot.run(-.65, -.65);
+    m_shoot.run(.65, .65);
     m_intake.runMotors(0.7);
   }
 

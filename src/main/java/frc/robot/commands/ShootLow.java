@@ -21,7 +21,7 @@ public class ShootLow extends Command {
 
   @Override
   public void initialize() {
-    m_shoot.run(-.65, -.65);
+    m_shoot.run(.65, .65);
     m_flapper.run(0); //change
     m_intake.runMotors(0.7);
   }

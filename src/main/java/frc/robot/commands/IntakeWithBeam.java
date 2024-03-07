@@ -25,25 +25,21 @@ public class IntakeWithBeam extends Command {
   @Override
   public void execute(){
     // check 
-    if (m_intake.sense()){
-       while (m_shoot.getLeftRPM() < IntakeConstants.minRPM && m_shoot.getRightRPM() < IntakeConstants.minRPM) {
-            m_shoot.run(-.65,-.65); // shouldn't run shooter
-        }
-
+    
         m_intake.runMotors(IntakeConstants.intakeBeltSpeed);
-        
-    }
+
   }
 
   @Override
   public boolean isFinished() {
-    return true;
+    return m_intake.sense();
   }
 
   @Override
   public void end(boolean interrupted) {
     m_shoot.run(0.0, 0.0);
-    m_intake.runMotors(0.0); 
+    m_intake.runMotors(0.0);
+     
   }
 
 }

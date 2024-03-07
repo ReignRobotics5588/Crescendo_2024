@@ -54,7 +54,8 @@ public class RobotContainer {
     m_chooser.setDefaultOption("Default", m_autonomousCommand); 
     m_chooser.addOption("Short", m_shortCommand);
     m_chooser.addOption("Long", m_longCommand);
-    m_chooser.addOption("Shooter", new ShootAuto(m_Drivetrain, m_Shooter, m_Intake));
+    m_chooser.addOption("Shoot Auto", new TestAuto(m_Drivetrain, m_Shooter, m_Intake));
+    m_chooser.addOption("Shoot Speaker", new ShootSpeaker(m_Shooter, m_Intake));
 
     SmartDashboard.putData(m_chooser);
 
