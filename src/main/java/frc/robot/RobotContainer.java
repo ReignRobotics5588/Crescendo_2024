@@ -28,7 +28,7 @@ public class RobotContainer {
   //private final Drivetrain m_drivetrain = new Drivetrain();
   private final Intake m_Intake = new Intake();
   public final Shooter m_Shooter = new Shooter();
-  private final Drivetrain m_Drivetrain = new Drivetrain();
+  private final Drivetrain m_Drivetrain = new Drivetrain(); 
   private final Climber m_Climber = new Climber(); 
   private final Flapper m_Flapper = new Flapper();
 
@@ -38,10 +38,10 @@ public class RobotContainer {
 
   private final SendableChooser<Command> m_chooser;
 
-  private final Command m_autonomousCommand = new DriveCommand(m_Drivetrain, 60, 0.7);
-  private final Command m_shortCommand = new DriveCommand(m_Drivetrain, 10, 0.2);
-  private final Command m_longCommand = new DriveCommand(m_Drivetrain, 80, 0.7);
-
+  // rep with testshootauto
+  private final Command m_testShootAuto = new DriveCommand(m_Drivetrain, 60, 0.7);
+  // sequential command
+  private Command m_driveDistance = new TestAuto(m_Drivetrain, m_Shooter, m_Intake);
   // private final Command m_shootHigh = new ShootSpeaker(m_Shooter, m_Intake);
 
 
@@ -51,11 +51,9 @@ public class RobotContainer {
 
     m_chooser = new SendableChooser<>(); 
 
-    m_chooser.setDefaultOption("Default", m_autonomousCommand); 
-    m_chooser.addOption("Short", m_shortCommand);
-    m_chooser.addOption("Long", m_longCommand);
-    m_chooser.addOption("Shoot Auto", new TestAuto(m_Drivetrain, m_Shooter, m_Intake));
-    m_chooser.addOption("Shoot Speaker", new ShootSpeaker(m_Shooter, m_Intake));
+    m_chooser.setDefaultOption("Center 2 Note: ", m_testShootAuto); 
+    m_chooser.addOption("Cross line no shoot", m_driveDistance); 
+ 
 
     SmartDashboard.putData(m_chooser);
 
