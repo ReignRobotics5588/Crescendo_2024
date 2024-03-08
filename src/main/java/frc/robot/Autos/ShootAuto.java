@@ -16,9 +16,9 @@ public class ShootAuto extends SequentialCommandGroup {
 
         addCommands(
             (Command) new DriveCommand(drivetrain,400, 0.7), 
-            (Command) new DriveCommand(drivetrain, 0, 0.5, -90),
+            //(Command) new DriveCommand(drivetrain, 0, 0.5, -90),
             (Command) new DriveCommand(drivetrain, 200, 0.7), 
-            (Command) new DriveCommand(drivetrain, 0, 0.5, -90),
+            //(Command) new DriveCommand(drivetrain, 0, 0.5, -90),
             new ShootSpeaker(shooter, intake)
 
         );

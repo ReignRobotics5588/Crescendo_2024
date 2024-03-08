@@ -20,10 +20,10 @@ public class AmpAuto extends SequentialCommandGroup {
 
         addCommands(
             (Command) new DriveCommand(drivetrain,400, 0.7), 
-            (Command) new DriveCommand(drivetrain, 0, 0.5, -90),
+            //(Command) new DriveCommand(drivetrain, 0, 0.5, -90),
             (Command) new DriveCommand(drivetrain, 200, 0.7), 
             (Command) new ShootLow(shooter, intake, flapper),
-            (Command) new DriveCommand(drivetrain, 0, 0.5, -90),
+            //(Command) new DriveCommand(drivetrain, 0, 6, -90),
             (Command) new IntakeWithBeam(shooter, intake),
             (Command) new ShootLow(shooter, intake, flapper)
 
