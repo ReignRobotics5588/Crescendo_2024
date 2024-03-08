@@ -22,7 +22,7 @@ public class Intake extends SubsystemBase {
     }
     // if break -> stop intake unless flywheel is running
 
-    public void runMotors(double speed, Shooter shooter) {
+    public void runMotors(double speed) {
         m_leftIntakeMotor.set(-speed);
         m_rightIntakeMotor.set(-speed);
 

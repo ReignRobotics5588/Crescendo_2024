@@ -10,9 +10,9 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Commands;
 
-public class TestAuto extends SequentialCommandGroup {
+public class Shoot2CenterNote extends SequentialCommandGroup {
 
-    public TestAuto(Drivetrain drivetrain, Shooter shooter, Intake intake){
+    public Shoot2CenterNote(Drivetrain drivetrain, Shooter shooter, Intake intake){
         // private final Command m_autonomousCommand = new DriveCommand(m_Drivetrain, 60, 0.7);
         // public DriveCommand(Drivetrain D, int d, double s, double a)
 

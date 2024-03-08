@@ -38,10 +38,11 @@ public class RobotContainer {
 
   private final SendableChooser<Command> m_chooser;
 
-  // rep with testshootauto
-  private final Command m_testShootAuto = new DriveCommand(m_Drivetrain, 60, 0.7);
-  // sequential command
-  private Command m_driveDistance = new TestAuto(m_Drivetrain, m_Shooter, m_Intake);
+
+  private final Command m_Shoot2CenterNote =  new Shoot2CenterNote(m_Drivetrain, m_Shooter, m_Intake);
+
+  private Command m_driveDistance =new DriveCommand(m_Drivetrain, 60, 0.7);
+ 
   // private final Command m_shootHigh = new ShootSpeaker(m_Shooter, m_Intake);
 
 
@@ -51,7 +52,7 @@ public class RobotContainer {
 
     m_chooser = new SendableChooser<>(); 
 
-    m_chooser.setDefaultOption("Center 2 Note: ", m_testShootAuto); 
+    m_chooser.setDefaultOption("Center 2 Note: ", m_Shoot2CenterNote); 
     m_chooser.addOption("Cross line no shoot", m_driveDistance); 
  
 
@@ -114,8 +115,8 @@ public class RobotContainer {
     OPERATOR_Y_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.65, .65), ()->m_Shooter.run(0,0), m_Shooter));
     OPERATOR_rBumper.whileTrue(Commands.startEnd(()-> m_Shooter.run(.1, .1), ()->m_Shooter.run(0,0), m_Shooter));
     
-    DRIVER_lBumper.whileTrue(Commands.startEnd(()->m_Intake.run(0.7,m_Shooter), ()->m_Intake.run(0, m_Shooter), m_Intake));
-    OPERATOR_lBumper.whileTrue(Commands.startEnd(()->m_Intake.run(-.7,m_Shooter), ()->m_Intake.run(0, m_Shooter), m_Intake));
+    DRIVER_lBumper.whileTrue(Commands.startEnd(()->m_Intake.runMotors(0.7), ()->m_Intake.runMotors(0), m_Intake));
+    OPERATOR_lBumper.whileTrue(Commands.startEnd(()->m_Intake.runMotors(-.7), ()->m_Intake.runMotors(0), m_Intake));
     
     OPERATOR_A_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
     OPERATOR_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(-FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
