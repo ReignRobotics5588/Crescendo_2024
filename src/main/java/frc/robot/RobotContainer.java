@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Autos.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -37,9 +38,12 @@ public class RobotContainer {
 
   private final SendableChooser<Command> m_chooser;
 
-  private final Command m_autonomousCommand = new DriveCommand(m_Drivetrain, 60, -0.7);
-  private final Command m_shortCommand = new DriveCommand(m_Drivetrain, 10, -0.2);
-  private final Command m_longCommand = new DriveCommand(m_Drivetrain, 72, -0.35);
+  // rep with testshootauto
+  private final Command m_testShootAuto = new DriveCommand(m_Drivetrain, 60, 0.7);
+  // sequential command
+  private Command m_driveDistance = new TestAuto(m_Drivetrain, m_Shooter, m_Intake);
+  // private final Command m_shootHigh = new ShootSpeaker(m_Shooter, m_Intake);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -47,9 +51,9 @@ public class RobotContainer {
 
     m_chooser = new SendableChooser<>(); 
 
-    m_chooser.setDefaultOption("Default", m_autonomousCommand); 
-    m_chooser.addOption("Short", m_shortCommand);
-    m_chooser.addOption("Long", m_longCommand);
+    m_chooser.setDefaultOption("Center 2 Note: ", m_testShootAuto); 
+    m_chooser.addOption("Cross line no shoot", m_driveDistance); 
+ 
 
     SmartDashboard.putData(m_chooser);
 
@@ -115,6 +119,7 @@ public class RobotContainer {
     
     OPERATOR_A_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
     OPERATOR_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(-FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
+    // bind climber
   }
 
     // Connect the buttons to commands

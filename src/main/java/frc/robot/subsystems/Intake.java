@@ -10,24 +10,15 @@ public class Intake extends SubsystemBase {
 
     private final CANSparkMax m_leftIntakeMotor = new CANSparkMax(IntakeConstants.kLeftMotorPort,MotorType.kBrushed);
     private final CANSparkMax m_rightIntakeMotor = new CANSparkMax(IntakeConstants.kRightMotorPort, MotorType.kBrushed);
-    private final DigitalInput m_intakeSensor = new DigitalInput(IntakeConstants.sensorPort);
-    private final DigitalInput m_intakeSensor2 = new DigitalInput(IntakeConstants.sensorPort2);
+    private final DigitalInput m_intakeSensorOne = new DigitalInput(IntakeConstants.sensorPortOne);
+    private final DigitalInput m_intakeSensorTwo = new DigitalInput(IntakeConstants.sensorPortTwo);
     
     public Intake () {
         super();
     } 
-    public void run(double speed, Shooter shooter) {
-        /*runMotors(speed);
-        if (sense()) {
-           runMotors(speed);
-        } else {
-            runMotors(0);
-        }*/
-        runMotors(speed, shooter);
-    } 
-    public boolean sense() {
-        return !m_intakeSensor.get() || !m_intakeSensor2.get();
     
+    public boolean sense() {
+        return !m_intakeSensorOne.get() || !m_intakeSensorTwo.get(); 
     }
     // if break -> stop intake unless flywheel is running
 
