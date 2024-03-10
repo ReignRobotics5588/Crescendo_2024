@@ -144,5 +144,9 @@ public class Drivetrain extends SubsystemBase {
   public void setMaxOutput(double maxOutput) {
     m_drive.setMaxOutput(maxOutput);
   }
+
+  public double getAngle(){
+    return m_ahrs.getAngle(); 
+  }
         
 }

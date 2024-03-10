@@ -2,8 +2,9 @@ package frc.robot.Autos;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.IntakeConstants;
+import frc.robot.commands.DriveAndIntake;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.IntakeWithBeam;
+import frc.robot.commands.TurnDrivetrain;
 import frc.robot.commands.ShootLow;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
@@ -19,12 +20,12 @@ public class AmpAuto extends SequentialCommandGroup {
         // public DriveCommand(Drivetrain D, int d, double s, double a)
 
         addCommands(
-            (Command) new DriveCommand(drivetrain,400, 0.7), 
-            //(Command) new DriveCommand(drivetrain, 0, 0.5, -90),
-            (Command) new DriveCommand(drivetrain, 200, 0.7), 
+
+            (Command) new TurnDrivetrain(drivetrain, 0.5, 90),
             (Command) new ShootLow(shooter, intake, flapper),
             //(Command) new DriveCommand(drivetrain, 0, 6, -90),
-            (Command) new IntakeWithBeam(shooter, intake),
+            (Command) new DriveAndIntake(drivetrain, intake, -0.5, 0),
+            (Command) new DriveCommand(drivetrain, 100, 0.0), // check measurement
             (Command) new ShootLow(shooter, intake, flapper)
 
         );
