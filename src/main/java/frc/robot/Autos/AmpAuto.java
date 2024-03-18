@@ -23,9 +23,11 @@ public class AmpAuto extends SequentialCommandGroup {
 
             (Command) new TurnDrivetrain(drivetrain, 0.5, 90),
             (Command) new ShootLow(shooter, intake, flapper),
+            (Command) new TurnDrivetrain(drivetrain, .65, 15),
             //(Command) new DriveCommand(drivetrain, 0, 6, -90),
             (Command) new DriveAndIntake(drivetrain, intake, -0.5, 0),
             (Command) new DriveCommand(drivetrain, 100, 0.0), // check measurement
+            (Command) new TurnDrivetrain(drivetrain, .65, -15),
             (Command) new ShootLow(shooter, intake, flapper)
 
         );

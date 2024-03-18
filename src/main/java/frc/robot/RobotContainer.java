@@ -40,8 +40,9 @@ public class RobotContainer {
 
 
   private final Command m_Shoot2CenterNote =  new Shoot2CenterNote(m_Drivetrain, m_Shooter, m_Intake);
-
+  private final Command TestShootAmp = new ShootLow(m_Shooter, m_Intake, m_Flapper); 
   private Command m_driveDistance =new DriveCommand(m_Drivetrain, 60, 0.7);
+  private Command TestAmpAuto = new AmpAuto(m_Drivetrain, m_Shooter, m_Intake, m_Flapper); 
  
   // private final Command m_shootHigh = new ShootSpeaker(m_Shooter, m_Intake);
 
@@ -54,6 +55,9 @@ public class RobotContainer {
 
     m_chooser.setDefaultOption("Center 2 Note: ", m_Shoot2CenterNote); 
     m_chooser.addOption("Cross line no shoot", m_driveDistance); 
+    m_chooser.addOption("test Shoot Amp", TestShootAmp);
+    m_chooser.addOption("test Amp Auto", TestAmpAuto);
+
  
 
     SmartDashboard.putData(m_chooser);
