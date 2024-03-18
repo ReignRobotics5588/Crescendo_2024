@@ -39,7 +39,11 @@ public class Climber extends SubsystemBase {
     climberRight.setIdleMode(IdleMode.kBrake);
     m_encoder_left.setPosition(0.0);
     m_encoder_right.setPosition(0.0);
-    // climber.setIdleMode(NeutralMode.Brake);keeps climber in break mode from the
+
+    climberLeft.setSmartCurrentLimit(30);
+    climberRight.setSmartCurrentLimit(30);
+    
+    //climberLeft.setIdleMode(NeutralMode.Brake); keeps climber in break mode from the
     // code itself :)
   }
 
@@ -48,9 +52,12 @@ public class Climber extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void setSpeed(double s) {
-    climberLeft.set(s);// climber functionsaadffa are parallel :)
-    climberRight.set(s);
+     public void setSpeed(double speedLeft, double speedRight) {
+
+    if ((Math.abs(speedLeft) > 0.25) || (Math.abs(speedRight))  > 0.25) {
+      climberLeft.set(speedLeft*ClimberConstants.kClimberSpeedLimit);
+      climberRight.set(speedRight*ClimberConstants.kClimberSpeedLimit);
+    }
   }
 
   public boolean getSwitch() {

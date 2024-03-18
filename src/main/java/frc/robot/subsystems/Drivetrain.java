@@ -37,14 +37,13 @@ public class Drivetrain extends SubsystemBase {
   private CANSparkMax backRightMotor = new CANSparkMax(DriveConstants.kBackRightMotorPort, MotorType.kBrushless);
 
 
-
   private RelativeEncoder m_frontLeftEncoder = frontLeftMotor.getEncoder();
   private RelativeEncoder m_frontRightEncoder = frontRightMotor.getEncoder();
   private RelativeEncoder m_backRightEncoder = backRightMotor.getEncoder();
   private RelativeEncoder m_backLeftEncoder = backLeftMotor.getEncoder();
 
   public AHRS m_ahrs = new AHRS(SPI.Port.kMXP);
-  DifferentialDriveOdometry m_odometry;
+  public DifferentialDriveOdometry m_odometry;
   //may need to reset here
 
   Pose2d m_pose;

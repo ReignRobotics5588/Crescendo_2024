@@ -1,4 +1,5 @@
 
+
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,7 +23,7 @@ public class DriveCommand extends Command {
 
   /*
    * Creates a new ExampleCommand.
-   *
+   * Speed can be negative but distance must be magnitude in inches
    * @param subsystem The subsystem used by this command.
    */
   public DriveCommand(Drivetrain DriveSubsystem, int d, double s) {

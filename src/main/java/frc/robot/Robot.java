@@ -64,6 +64,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Left RPM", m_robotContainer.m_Shooter.getLeftRPM());
     SmartDashboard.putNumber("Right RPM",m_robotContainer.m_Shooter.getRightRPM());
 
+    SmartDashboard.putNumber("Right Climber Encoder",m_robotContainer.m_Climber.getRightEncoderDistance());
+    SmartDashboard.putNumber("Left Climber Encoder", m_robotContainer.m_Climber.getLeftEncoderDistance());
+
+    SmartDashboard.putBoolean("Beem Break", m_robotContainer.m_Intake.sense());
+
     DriverStation.startDataLog(DataLogManager.getLog());
 
     CommandScheduler.getInstance().run();

@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Autos.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -25,10 +26,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   //private final Drivetrain m_drivetrain = new Drivetrain();
-  private final Intake m_Intake = new Intake();
+  final Intake m_Intake = new Intake();
   public final Shooter m_Shooter = new Shooter();
   private final Drivetrain m_Drivetrain = new Drivetrain();
-  private final Climber m_Climber = new Climber(); 
+  public final Climber m_Climber = new Climber(); 
   private final Flapper m_Flapper = new Flapper();
 
 
@@ -37,9 +38,15 @@ public class RobotContainer {
 
   private final SendableChooser<Command> m_chooser;
 
-  private final Command m_autonomousCommand = new DriveCommand(m_Drivetrain, 60, -0.7);
-  private final Command m_shortCommand = new DriveCommand(m_Drivetrain, 10, -0.2);
-  private final Command m_longCommand = new DriveCommand(m_Drivetrain, 80, -0.7);
+
+  private final Command m_Shoot2CenterNote =  new Shoot2CenterNote(m_Drivetrain, m_Shooter, m_Intake);
+
+  private Command m_driveDistance =new DriveCommand(m_Drivetrain, 60, 0.7);
+
+  private Command m_ShootSpeaker = new ShootSpeaker(m_Shooter, m_Intake);
+ 
+  // private final Command m_shootHigh = new ShootSpeaker(m_Shooter, m_Intake);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -47,9 +54,10 @@ public class RobotContainer {
 
     m_chooser = new SendableChooser<>(); 
 
-    m_chooser.setDefaultOption("Default", m_autonomousCommand); 
-    m_chooser.addOption("Short", m_shortCommand);
-    m_chooser.addOption("Long", m_longCommand);
+    m_chooser.setDefaultOption("Center 2 Note: ", m_Shoot2CenterNote); 
+    m_chooser.addOption("Cross line no shoot", m_driveDistance); 
+    m_chooser.addOption("Just shoot", m_ShootSpeaker);
+ 
 
     SmartDashboard.putData(m_chooser);
 
@@ -57,8 +65,9 @@ public class RobotContainer {
     m_Drivetrain.setDefaultCommand(
         new RunCommand(() ->   m_Drivetrain.arcadeDrive(m_driverController.getRawAxis(1), m_driverController.getRawAxis(4)), m_Drivetrain)); 
 
-    m_Climber.setDefaultCommand(
-        new RunCommand(() -> m_Climber.setSpeed(m_operatorController.getRawAxis(1)*.5),m_Climber)); 
+    /*m_Climber.setDefaultCommand(
+        new RunCommand(() -> m_Climber.setSpeed(m_operatorController.getRawAxis(1),m_operatorController.getRawAxis(5)),m_Climber));
+        */ 
     
       // 0.52 percent power
       // 7 CAN ID forward
@@ -105,16 +114,17 @@ public class RobotContainer {
     
     //Intake
     //Shooter Speaker
-    OPERATOR_B_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.50, .50), ()->m_Shooter.run(0,0), m_Shooter));
+    OPERATOR_B_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.65, .65), ()->m_Shooter.run(0,0), m_Shooter));
 
-    OPERATOR_Y_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.65, .65), ()->m_Shooter.run(0,0), m_Shooter));
-    OPERATOR_rBumper.whileTrue(Commands.startEnd(()-> m_Shooter.run(.1, .1), ()->m_Shooter.run(0,0), m_Shooter));
+    OPERATOR_Y_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.85, .85), ()->m_Shooter.run(0,0), m_Shooter));
+    OPERATOR_rBumper.whileTrue(Commands.startEnd(()-> m_Shooter.run(.11, .11), ()->m_Shooter.run(0,0), m_Shooter));
     
-    DRIVER_lBumper.whileTrue(Commands.startEnd(()->m_Intake.run(0.7,m_Shooter), ()->m_Intake.run(0, m_Shooter), m_Intake));
-    DRIVER_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Intake.run(-.7,m_Shooter), ()->m_Intake.run(0, m_Shooter), m_Intake));
+    DRIVER_lBumper.whileTrue(Commands.startEnd(()->m_Intake.runMotors(0.7), ()->m_Intake.runMotors(0), m_Intake));
+    OPERATOR_lBumper.whileTrue(Commands.startEnd(()->m_Intake.runMotors(-.7), ()->m_Intake.runMotors(0), m_Intake));
     
-    OPERATOR_A_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
-    OPERATOR_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(-FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
+    OPERATOR_A_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(-FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
+    OPERATOR_X_BUTTON_XBOX.whileTrue(Commands.startEnd(()->m_Flapper.run(FlapperConstants.kFlapperSpeed), ()->m_Flapper.run(0), m_Flapper));
+    // bind climber
   }
 
     // Connect the buttons to commands
