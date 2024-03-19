@@ -43,7 +43,7 @@ public class Climber extends SubsystemBase {
     climberLeft.setSmartCurrentLimit(30);
     climberRight.setSmartCurrentLimit(30);
     
-    //climberLeft.setIdleMode(NeutralMode.Brake); keeps climber in break mode from the
+    climberLeft.setIdleMode(IdleMode.kBrake); //keeps climber in break mode from the
     // code itself :)
   }
 
@@ -52,7 +52,7 @@ public class Climber extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-     public void setSpeed(double speedLeft, double speedRight) {
+  public void setSpeed(double speedLeft, double speedRight) {
 
     if ((Math.abs(speedLeft) > 0.25) || (Math.abs(speedRight))  > 0.25) {
       climberLeft.set(speedLeft*ClimberConstants.kClimberSpeedLimit);

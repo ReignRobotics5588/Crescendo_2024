@@ -65,9 +65,9 @@ public class RobotContainer {
     m_Drivetrain.setDefaultCommand(
         new RunCommand(() ->   m_Drivetrain.arcadeDrive(m_driverController.getRawAxis(1), m_driverController.getRawAxis(4)), m_Drivetrain)); 
 
-    /*m_Climber.setDefaultCommand(
+    m_Climber.setDefaultCommand(
         new RunCommand(() -> m_Climber.setSpeed(m_operatorController.getRawAxis(1),m_operatorController.getRawAxis(5)),m_Climber));
-        */ 
+        
     
       // 0.52 percent power
       // 7 CAN ID forward
