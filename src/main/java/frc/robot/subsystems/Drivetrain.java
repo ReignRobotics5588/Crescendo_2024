@@ -21,6 +21,9 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.SPI;
+
+import java.util.function.DoubleSupplier;
+
 import com.kauailabs.navx.frc.AHRS;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
@@ -42,7 +45,7 @@ public class Drivetrain extends SubsystemBase {
   private RelativeEncoder m_backRightEncoder = backRightMotor.getEncoder();
   private RelativeEncoder m_backLeftEncoder = backLeftMotor.getEncoder();
 
-  public AHRS m_ahrs = new AHRS(SPI.Port.kMXP);
+  public final AHRS m_ahrs = new AHRS(SPI.Port.kMXP);
   public DifferentialDriveOdometry m_odometry;
   //may need to reset here
 
@@ -147,5 +150,14 @@ public class Drivetrain extends SubsystemBase {
   public void setMaxOutput(double maxOutput) {
     m_drive.setMaxOutput(maxOutput);
   }
+
+public double getHeading() {
+  return Math.IEEEremainder(m_ahrs.getAngle(), 360) * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+}
+
+public double getTurnRate() {
+  return m_ahrs.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+}
+
         
 }

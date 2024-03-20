@@ -19,11 +19,23 @@ public final class Constants {
     public static final int kFrontRightMotorPort = 2;
     public static final int kBackRightMotorPort = 4;
 
-    public static final int kEncoderCPR = 1024; // update
-    public static final double kWheelDiameterInches = 6;
+    public static final int kEncoderCPR = 64; // update
+    public static final double kWheelDiameterInches = 8;
     public static final double kEncoderDistancePerPulse =
         // Assumes the encoders are directly mounted on the wheel shafts
         (kWheelDiameterInches * Math.PI) / (double) kEncoderCPR;
+
+    public static final double kTurnP = 1;
+    public static final double kTurnI = 0;
+    public static final double kTurnD = 0;
+
+    public static final double kMaxTurnRateDegPerS = 100;
+    public static final double kMaxTurnAccelerationDegPerSSquared = 300;
+
+    public static final double kTurnToleranceDeg = 5;
+    public static final double kTurnRateToleranceDegPerS = 10; // degrees per second
+
+    public static final boolean kGyroReversed = false;
   }
 
   public static final class ClimberConstants{
