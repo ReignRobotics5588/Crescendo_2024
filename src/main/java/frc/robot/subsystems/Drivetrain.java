@@ -118,10 +118,13 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void resetEncoders() {
+    SmartDashboard.putNumber("DriveEncoder", getLeftEncoderDistance());
     m_frontLeftEncoder.setPosition(0.0);
     m_frontRightEncoder.setPosition(0.0);
     m_backLeftEncoder.setPosition(0.0);
     m_backRightEncoder.setPosition(0.0);
+
+
   }
 
   public double getMeanEncoderDistance() {

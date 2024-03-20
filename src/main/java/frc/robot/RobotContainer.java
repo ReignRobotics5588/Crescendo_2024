@@ -44,6 +44,8 @@ public class RobotContainer {
   private Command m_driveDistance =new DriveCommand(m_Drivetrain, 60, 0.7);
 
   private Command m_ShootSpeaker = new ShootSpeaker(m_Shooter, m_Intake);
+
+  private Command m_turnInPlace = new TurnInPlace(90, 0.4, m_Drivetrain);
  
   // private final Command m_shootHigh = new ShootSpeaker(m_Shooter, m_Intake);
 
@@ -57,6 +59,7 @@ public class RobotContainer {
     m_chooser.setDefaultOption("Center 2 Note: ", m_Shoot2CenterNote); 
     m_chooser.addOption("Cross line no shoot", m_driveDistance); 
     m_chooser.addOption("Just shoot", m_ShootSpeaker);
+    m_chooser.addOption("TurnInPlace90", m_turnInPlace);
  
 
     SmartDashboard.putData(m_chooser);
@@ -138,6 +141,7 @@ public class RobotContainer {
 
   // check smartdashboard for auto here
   public Command getAutonomousCommand() { 
+    m_Drivetrain.resetEncoders();
     return m_chooser.getSelected();
   }
 };

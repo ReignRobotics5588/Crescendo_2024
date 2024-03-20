@@ -14,10 +14,10 @@ public class ShootAuto extends SequentialCommandGroup {
         // public DriveCommand(Drivetrain D, int d, double s, double a)
 
         addCommands(
-            (Command) new DriveCommand2(drivetrain,400, 0.7, 0), 
-            (Command) new DriveCommand2(drivetrain, 0, 0.5, -90),
-            (Command) new DriveCommand2(drivetrain, 200, 0.7, 0), 
-            (Command) new DriveCommand2(drivetrain, 0, 0.5, -90)
+            (Command) new DriveWithTurn(drivetrain,400, 0.7, 0), 
+            (Command) new DriveWithTurn(drivetrain, 0, 0.5, -90),
+            (Command) new DriveWithTurn(drivetrain, 200, 0.7, 0), 
+            (Command) new DriveWithTurn(drivetrain, 0, 0.5, -90)
 
         );
     }

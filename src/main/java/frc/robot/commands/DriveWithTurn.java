@@ -9,7 +9,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 
 /** An example command that uses an example subsystem. */
-public class DriveCommand2 extends Command {
+public class DriveWithTurn extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
 
@@ -27,7 +27,7 @@ public class DriveCommand2 extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveCommand2(Drivetrain dd, double d, double s) {
+  public DriveWithTurn(Drivetrain dd, double d, double s) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drivetrain = dd;
     m_distance = d;
@@ -36,7 +36,7 @@ public class DriveCommand2 extends Command {
     addRequirements(m_drivetrain);
   }
 
-  public DriveCommand2(Drivetrain dd, int d, double s, double a){
+  public DriveWithTurn(Drivetrain dd, int d, double s, double a){
     m_drivetrain = dd;
     m_distance = d;
     m_speed = s;
