@@ -54,9 +54,17 @@ public class Climber extends SubsystemBase {
 
   public void setSpeed(double speedLeft, double speedRight) {
 
-    if ((Math.abs(speedLeft) > 0.25) || (Math.abs(speedRight))  > 0.25) {
+    if ((Math.abs(speedLeft) > 0.25)) {
       climberLeft.set(speedLeft*ClimberConstants.kClimberSpeedLimit);
+    }
+    else{
+      climberLeft.set(0);
+    }
+    if((Math.abs(speedRight))  > 0.25){
       climberRight.set(speedRight*ClimberConstants.kClimberSpeedLimit);
+    }
+    else{
+      climberRight.set(0);
     }
   }
 

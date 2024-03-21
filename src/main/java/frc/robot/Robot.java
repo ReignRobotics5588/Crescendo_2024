@@ -67,6 +67,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Right Climber Encoder",m_robotContainer.m_Climber.getRightEncoderDistance());
     SmartDashboard.putNumber("Left Climber Encoder", m_robotContainer.m_Climber.getLeftEncoderDistance());
 
+    SmartDashboard.putNumber("Gyro Heading: ", m_robotContainer.m_Drivetrain.getHeading());
+
     SmartDashboard.putBoolean("Beem Break", m_robotContainer.m_Intake.sense());
 
     DriverStation.startDataLog(DataLogManager.getLog());
@@ -94,7 +96,10 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() 
+  {
+    //SmartDashboard.putNumber("Gyro Heading: ", m_robotContainer.m_Drivetrain.getHeading());
+  }
 
   @Override
   public void teleopInit() {

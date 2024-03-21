@@ -28,7 +28,7 @@ public class RobotContainer {
   //private final Drivetrain m_drivetrain = new Drivetrain();
   final Intake m_Intake = new Intake();
   public final Shooter m_Shooter = new Shooter();
-  private final Drivetrain m_Drivetrain = new Drivetrain();
+  public final Drivetrain m_Drivetrain = new Drivetrain();
   public final Climber m_Climber = new Climber(); 
   private final Flapper m_Flapper = new Flapper();
 
@@ -45,7 +45,9 @@ public class RobotContainer {
 
   private Command m_ShootSpeaker = new ShootSpeaker(m_Shooter, m_Intake);
 
-  private Command m_turnInPlace = new TurnInPlace(90, 0.4, m_Drivetrain);
+  private Command m_turnInPlace = new PIDturn(90, m_Drivetrain);
+
+  private Command m_turnInPlace2 = new PIDturn(180, m_Drivetrain);
  
   // private final Command m_shootHigh = new ShootSpeaker(m_Shooter, m_Intake);
 
@@ -60,6 +62,7 @@ public class RobotContainer {
     m_chooser.addOption("Cross line no shoot", m_driveDistance); 
     m_chooser.addOption("Just shoot", m_ShootSpeaker);
     m_chooser.addOption("TurnInPlace90", m_turnInPlace);
+    m_chooser.addOption("Oscillation", m_turnInPlace2);
  
 
     SmartDashboard.putData(m_chooser);

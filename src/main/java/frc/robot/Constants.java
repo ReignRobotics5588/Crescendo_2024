@@ -25,9 +25,9 @@ public final class Constants {
         // Assumes the encoders are directly mounted on the wheel shafts
         (kWheelDiameterInches * Math.PI) / (double) kEncoderCPR;
 
-    public static final double kTurnP = 1;
+    public static final double kTurnP = 0.03;
     public static final double kTurnI = 0;
-    public static final double kTurnD = 0;
+    public static final double kTurnD = 0.001;
 
     public static final double kMaxTurnRateDegPerS = 100;
     public static final double kMaxTurnAccelerationDegPerSSquared = 300;
