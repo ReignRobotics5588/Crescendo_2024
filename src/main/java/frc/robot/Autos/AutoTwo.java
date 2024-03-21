@@ -33,9 +33,6 @@ public class ShootAuto extends SequentialCommandGroup {
 
         // could do a constructor to intake limelight values but continuously update
         // method to calculate the angle with new distance values, height never changes
-
-        // more efficient in terms of battery saving
-
         
         addCommands(
             // drives to location
