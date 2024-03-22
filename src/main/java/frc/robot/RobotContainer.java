@@ -48,6 +48,10 @@ public class RobotContainer {
   private Command m_turnInPlace = new PIDturn(90, m_Drivetrain);
 
   private Command m_turnInPlace2 = new PIDturn(180, m_Drivetrain);
+
+  private Command m_shootDriveRED = new ShootCrossRed(m_Drivetrain, m_Shooter, m_Intake);
+
+  private Command m_shootDriveBLUE = new ShootCrossBlue(m_Drivetrain, m_Shooter, m_Intake);
  
   // private final Command m_shootHigh = new ShootSpeaker(m_Shooter, m_Intake);
 
@@ -61,10 +65,11 @@ public class RobotContainer {
     m_chooser.setDefaultOption("Center 2 Note: ", m_Shoot2CenterNote); 
     m_chooser.addOption("Cross line no shoot", m_driveDistance); 
     m_chooser.addOption("Just shoot", m_ShootSpeaker);
-    m_chooser.addOption("TurnInPlace90", m_turnInPlace);
-    m_chooser.addOption("Oscillation", m_turnInPlace2);
+    // m_chooser.addOption("TurnInPlace90", m_turnInPlace);
+    // m_chooser.addOption("Oscillation", m_turnInPlace2);
+    m_chooser.addOption("Shoot Drive RED", m_shootDriveRED);
+    m_chooser.addOption("Shoot Drive BLUE", m_shootDriveBLUE);
  
-
     SmartDashboard.putData(m_chooser);
 
     // Assign default commands

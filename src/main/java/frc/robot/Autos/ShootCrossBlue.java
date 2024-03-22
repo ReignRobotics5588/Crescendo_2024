@@ -1,6 +1,7 @@
 package frc.robot.Autos;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.Drive2Speeds;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.DriveWithTurn;
 import frc.robot.commands.ShootSpeaker;
@@ -15,7 +16,7 @@ public class ShootCrossBlue extends SequentialCommandGroup{
 
         addCommands(
             new ShootAuto(drivetrain, shooter, intake), 
-            Commands.startEnd(()->drivetrain.tankDrive(0.3, 0.6), ()->drivetrain.tankDrive(0, 0), drivetrain)
+            (Command) new Drive2Speeds(drivetrain, 60.0, 0.4, 0.6)  
         );
     }
     
