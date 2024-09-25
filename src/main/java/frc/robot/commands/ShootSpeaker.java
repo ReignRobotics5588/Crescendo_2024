@@ -27,7 +27,7 @@ public class ShootSpeaker extends Command {
   public void execute(){
     // if (m_intake.sense()){
        // while (m_shoot.getLeftRPM() < IntakeConstants.minRPM && m_shoot.getRightRPM() < IntakeConstants.minRPM) {
-    m_shoot.run(.65,.65);
+    m_shoot.run(.85,.85);
     Timer.delay(1.5);
 
     // }
