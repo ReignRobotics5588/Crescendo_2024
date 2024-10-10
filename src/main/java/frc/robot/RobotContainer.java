@@ -128,7 +128,7 @@ public class RobotContainer {
     OPERATOR_B_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.65, .65), ()->m_Shooter.run(0,0), m_Shooter));
 
     OPERATOR_Y_BUTTON_XBOX.whileTrue(Commands.startEnd(()-> m_Shooter.run(.85, .85), ()->m_Shooter.run(0,0), m_Shooter));
-    OPERATOR_rBumper.whileTrue(Commands.startEnd(()-> m_Shooter.run(.11, .11), ()->m_Shooter.run(0,0), m_Shooter));
+    OPERATOR_rBumper.whileTrue(Commands.startEnd(()-> m_Shooter.run(.14, .14), ()->m_Shooter.run(0,0), m_Shooter));
     
     DRIVER_lBumper.whileTrue(Commands.startEnd(()->m_Intake.runMotors(0.7), ()->m_Intake.runMotors(0), m_Intake));
     OPERATOR_lBumper.whileTrue(Commands.startEnd(()->m_Intake.runMotors(-.7), ()->m_Intake.runMotors(0), m_Intake));
